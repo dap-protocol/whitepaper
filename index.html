@@ -136,6 +136,27 @@
         padding-left: var(--padding);
       }
 
+      h1 {
+        display: flex;
+
+        @media (min-width: 401px) {
+          align-items: center;
+          flex-direction: row;
+
+          a {
+            margin-left: 2rem;
+          }
+        }
+
+        @media (max-width: 400px) {
+          flex-direction: column;
+        }
+
+        a {
+          font-size: 50%;
+        }
+      }
+
       h2,
       h3,
       ol li,
@@ -263,7 +284,7 @@
     </aside>
 
     <section id="abstract">
-      <h1>Abstract</h1>
+      <h1>Abstract <a href="README.md">Markdown version</a></h1>
 
       <p>The internet’s naming system remains under the centralized control of the Internet Corporation for Assigned Names and Numbers (<a href="https://icann.org?ref=dap.sh" target="_blank">ICANN</a>), requiring million‑dollar fees and bureaucratic approval processes for new top‑level domains. While other blockchain naming systems have attempted to solve this through pure decentralization, they have failed to produce notable products or use cases after years of operation, trapped by ideological purity that refuses any coordination even when necessary for basic ecosystem development.</p>
 
