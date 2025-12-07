@@ -1,5 +1,5 @@
 # Dap: A Pragmatic Approach to Decentralized Naming
-**Version 6.0**
+**Version 6.1**
 
 ## 1. Abstract
 
@@ -319,6 +319,71 @@ TLD squatting is prevented through economic incentives:
 - 100 TLDs: 5x price each
 - Message: You better use them!
 
+### 6.4 Personal TLDs
+
+Standard TLDs require SLD registrations to prevent squatting, but this conflicts with a legitimate use case: personal namespaces. Someone wanting `.lanhikari` for their own identity shouldn’t need (nor want) to sell domains to strangers.
+
+Personal TLDs solve this through economic design rather than honor systems.
+
+**Registration Choice**
+
+At TLD claim, the wallet selects one of two classes:
+
+| Class    | Renewal Fee  | SLD Requirement           | Transfer Rules      |
+|----------|--------------|---------------------------|---------------------|
+| Standard | Base rate    | 100+ Year 1, 1000+ Year 2 | Freely transferable |
+| Personal | 3× base rate | None                      | Graduated unlock    |
+
+The choice is recorded on‑chain at registration. The 3× fee multiplier makes portfolio‑building uneconomical while remaining affordable for genuine personal use.
+
+**Graduated Transfer Unlock**
+
+Personal TLDs have transfer restrictions that decay over time:
+
+| Ownership Duration | Transfer Allowed? | Burn Penalty             |
+|--------------------|-------------------|--------------------------|
+| Year 0–1           | No                | Blocked                  |
+| Year 1–2           | Yes               | 75% of sale price burned |
+| Year 2–3           | Yes               | 50% of sale price burned |
+| Year 3+            | Yes               | None                     |
+
+**Deflationary burns**: All penalty burns permanently remove GRP from circulation. No treasury allocation—pure deflation. This ensures no constituency benefits from rule‑breaking, making the penalty a pure disincentive.
+
+By year 3, the owner has paid enough premium renewals (3× annually) that speculation math doesn’t work regardless of transfer freedom.
+
+**Personal → Standard Conversion**
+
+Circumstances change. A personal TLD can convert to standard class at any time, with the following conditions:
+
+1. SLD requirement activates immediately (clock starts, usage thresholds apply)
+2. Transfer lock resets to year 0 of the standard transfer schedule
+3. Renewal fee drops to base rate on the next renewal cycle
+4. Conversion is irreversible
+
+This prevents gaming where someone parks as personal then flips to standard right before a sale. The reverse conversion (standard → personal) is not permitted.
+
+**On-Chain Data**
+
+```
+TLD {
+  class: "personal" | "standard";
+  last_renewed: timestamp;
+  name: string;
+  personal_since: timestamp | null;
+  registered_at: timestamp;
+}
+```
+
+The `personal_since` field tracks when the TLD entered personal class, enabling accurate graduated unlock calculations regardless of original registration date.
+
+**Design Rationale**
+
+This approach succeeds where cap‑based exemptions (e.g., "4‑10 personal TLDs per wallet") would fail:
+
+- **No Sybil vulnerability**: Creating multiple wallets doesn’t help—each TLD costs 3× to maintain
+- **Self‑enforcing**: No subjective judgment calls or governance overhead
+- **Clear social contract**: "Personal TLDs are yours, not investment vehicles"—the restrictions become a feature
+
 ## 7. Governance: Efficient, Not Perfect
 
 ### 7.1 Benevolent Dictatorship Phase
@@ -374,16 +439,24 @@ Total Supply: **420,000,000 GRP**
 
 ### 8.2 Deflationary Mechanics
 
-All TLD auction proceeds are permanently burned:
+All TLD auction proceeds and penalty burns are permanently removed from circulation:
+
+**Burn Sources**:
+
+- TLD auction winning bids
+- Personal TLD early transfer penalties (graduated 75%/50%)
+- Future protocol‑level penalties
 
 **Burn Projections**:
 
-- Year 1: 1‑2M GRP burned
-- Year 5: 10‑15M GRP burned cumulative
-- Year 10: 25‑35M GRP burned cumulative
+- Year 1: 1‑2M GRP burned
+- Year 5: 10‑15M GRP burned cumulative
+- Year 10: 25‑35M GRP burned cumulative
 - Long‑term: 5‑10% of supply permanently removed
 
 **Economic Security**: As supply decreases through burning while demand increases through adoption, GRP becomes increasingly valuable, ensuring long‑term mining incentives even as block rewards decrease.
+
+**Why True Burns**: Penalty burns go to a provably unspendable address rather than a treasury. This eliminates perverse incentives—no constituency profits from rule‑breaking. "Break the rules, value disappears" is simpler to explain and harder to politicize than redistribution schemes.
 
 ### 8.3 No Pre-mine Games
 
@@ -630,4 +703,4 @@ Join us in building the future of internet naming. Not through endless debates a
 
 *Join us: [https://dap.sh](https://dap.sh)*
 
-*Version 6.0*
+*Version 6.1*

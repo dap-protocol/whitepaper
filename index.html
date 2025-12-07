@@ -280,8 +280,8 @@
 
   <body>
     <aside>
-      <p>WARNING: DRAFT 6 — IN‑PROGRESS WHITEPAPER</p>
-      <p>UPDATED: 2025.11.28</p>
+      <p>WARNING: DRAFT 6.1 — IN‑PROGRESS WHITEPAPER</p>
+      <p>UPDATED: 2025.12.07</p>
     </aside>
 
     <section id="abstract">
@@ -657,6 +657,79 @@
         <li>100 TLDs: 5x price each</li>
         <li>Message: You better use them!</li>
       </ul>
+
+      <h3>6.4 Personal TLDs</h3>
+
+      <p>Standard TLDs require SLD registrations to prevent squatting, but this conflicts with a legitimate use case: personal namespaces. Someone wanting `.lanhikari` for their own identity shouldn’t need (nor want) to sell domains to strangers.</p>
+
+      <p>Personal TLDs solve this through economic design rather than honor systems.</p>
+
+      <p><strong>Registration Choice</strong></p>
+
+      <p>At TLD claim, the wallet selects one of two classes:</p>
+
+      <pre class="dedent"><code class="language-markdown">
+| Class    | Renewal Fee  | SLD Requirement           | Transfer Rules      |
+|----------|--------------|---------------------------|---------------------|
+| Standard | Base rate    | 100+ Year 1, 1000+ Year 2 | Freely transferable |
+| Personal | 3× base rate | None                      | Graduated unlock    |
+      </code></pre>
+
+      <p>The choice is recorded on‑chain at registration. The 3&times; fee multiplier makes portfolio‑building uneconomical while remaining affordable for genuine personal use.</p>
+
+      <p><strong>Graduated Transfer Unlock</strong></p>
+
+      <p>Personal TLDs have transfer restrictions that decay over time:</p>
+
+      <pre class="dedent"><code class="language-markdown">
+| Ownership Duration | Transfer Allowed? | Burn Penalty             |
+|--------------------|-------------------|--------------------------|
+| Year 0–1           | No                | Blocked                  |
+| Year 1–2           | Yes               | 75% of sale price burned |
+| Year 2–3           | Yes               | 50% of sale price burned |
+| Year 3+            | Yes               | None                     |
+      </code></pre>
+
+      <p><strong>Deflationary burns</strong>: All penalty burns permanently remove GRP from circulation. No treasury allocation—pure deflation. This ensures no constituency benefits from rule‑breaking, making the penalty a pure disincentive.</p>
+
+      <p>By year 3, the owner has paid enough premium renewals (3&times; annually) that speculation math doesn’t work regardless of transfer freedom.</p>
+
+      <p><strong>Personal → Standard Conversion</strong></p>
+
+      <p>Circumstances change. A personal TLD can convert to standard class at any time, with the following conditions:</p>
+
+      <ol>
+        <li>SLD requirement activates immediately (clock starts, usage thresholds apply)</li>
+        <li>Transfer lock resets to year 0 of the standard transfer schedule</li>
+        <li>Renewal fee drops to base rate on the next renewal cycle</li>
+        <li>Conversion is irreversible</li>
+      </ol>
+
+      <p>This prevents gaming where someone parks as personal then flips to standard right before a sale. The reverse conversion (standard → personal) is not permitted.</p>
+
+      <p><strong>On-Chain Data</strong></p>
+
+      <pre class="dedent"><code class="language-typescript">
+TLD {
+  class: "personal" | "standard";
+  last_renewed: timestamp;
+  name: string;
+  personal_since: timestamp | null;
+  registered_at: timestamp;
+}
+      </code></pre>
+
+      <p>The <code>personal_since</code> field tracks when the TLD entered personal class, enabling accurate graduated unlock calculations regardless of original registration date.</p>
+
+      <p><strong>Design Rationale</strong></p>
+
+      <p>This approach succeeds where cap‑based exemptions (e.g., "4‑10 personal TLDs per wallet") would fail:</p>
+
+      <ul>
+        <li><strong>No Sybil vulnerability</strong>: Creating multiple wallets doesn’t help—each TLD costs 3&times; to maintain</li>
+        <li><strong>Self‑enforcing</strong>: No subjective judgment calls or governance overhead</li>
+        <li><strong>Clear social contract</strong>: "Personal TLDs are yours, not investment vehicles"—the restrictions become a feature</li>
+      </ul>
     </section>
 
     <section id="governance">
@@ -721,18 +794,28 @@
 
       <h3>8.2 Deflationary Mechanics</h3>
 
-      <p>All TLD auction proceeds are permanently burned:</p>
+      <p>All TLD auction proceeds and penalty burns are permanently removed from circulation:</p>
+
+      <p><strong>Burn Sources</strong>:</p>
+
+      <ul>
+        <li>TLD auction winning bids</li>
+        <li>Personal TLD early transfer penalties (graduated 75%/50%)</li>
+        <li>Future protocol‑level penalties</li>
+      </ul>
 
       <p><strong>Burn Projections</strong>:</p>
 
       <ul>
-        <li>Year 1: 1‑2M GRP burned</li>
-        <li>Year 5: 10‑15M GRP burned cumulative</li>
-        <li>Year 10: 25‑35M GRP burned cumulative</li>
+        <li>Year 1: 1‑2M GRP burned</li>
+        <li>Year 5: 10‑15M GRP burned cumulative</li>
+        <li>Year 10: 25‑35M GRP burned cumulative</li>
         <li>Long‑term: 5‑10% of supply permanently removed</li>
       </ul>
 
       <p><strong>Economic Security</strong>: As supply decreases through burning while demand increases through adoption, GRP becomes increasingly valuable, ensuring long‑term mining incentives even as block rewards decrease.</p>
+
+      <p><strong>Why True Burns</strong>: Penalty burns go to a provably unspendable address rather than a treasury. This eliminates perverse incentives—no constituency profits from rule‑breaking. "Break the rules, value disappears" is simpler to explain and harder to politicize than redistribution schemes.</p>
 
       <h3>8.3 No Premine Games</h3>
 
@@ -1023,8 +1106,8 @@
 
     <section id="fin">
       <p>Join us: <a href="https://dap.sh">https://dap.sh</a></p>
-      <p>Version 6 - Draft</p>
-      <p>Last Updated: 2025.11.28</p>
+      <p>Version 6.1 - Draft</p>
+      <p>Last Updated: 2025.12.07</p>
     </section>
   </body>
 

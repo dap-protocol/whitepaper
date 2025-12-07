@@ -1,3 +1,6 @@
-# OS artefacts
+# OS
 .DS_Store
 Thumbs.db
+
+# File
+deploy.sh
