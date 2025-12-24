@@ -1,5 +1,5 @@
 # Dap: A Pragmatic Approach to Decentralized Naming
-**Version 6.1**
+**Version 7**
 
 ## 1. Abstract
 
@@ -92,26 +92,30 @@ Dap targets three distinct markets:
 
 Unlike projects that wait for users to discover them, Dap actively creates adoption:
 
-**Phase 1: Builders (Months 0‑6)**
+**Phase 1: Resolution & Builders (Months 0‑6)**
 
+- Browser extensions for Chrome, Firefox, Safari at launch
+- Public DoH/DoT resolver (`dns.dap.sh`) at launch
 - Developer grants program ($10M allocated)
 - Weekly hackathons and demo days
 - Technical documentation and SDKs
 - Direct outreach to Web3 projects
 
-**Phase 2: Businesses (Months 6‑12)**
+**Phase 2: Browser & Businesses (Months 6‑12)**
 
+- Aries browser ships (Chromium engine)
+- Native browser integration negotiations
 - Enterprise sales team targeting Fortune 500
 - White‑glove onboarding for major brands
 - Partnership with existing registrars
 - Integration with popular platforms
 
-**Phase 3: Consumers (Months 12+)**
+**Phase 3: Mass Adoption (Months 12+)**
 
-- Browser extensions for Chrome/Firefox/Safari
-- Mobile apps for iOS/Android
+- Mobile apps for iOS/Android with built-in resolution
 - Marketing campaigns targeting specific communities
 - Influencer partnerships and sponsorships
+- Consumer education initiatives
 
 **Pragmatic Governance**: For the first two years, a small team makes decisions quickly. No months‑long governance debates about minor technical details. No committee paralysis. Decisions in days, not months.
 
@@ -158,33 +162,48 @@ This “Trinity” design delivers:
 
 But we emphasize: **Technical superiority means nothing without adoption**. We judge our consensus by whether it enables products, not whether it wins academic awards.
 
-### 4.3 DNS Integration That Works
+### 4.3 Resolution: The Existential Priority
 
-Unlike other projects’ “build it and hope” approach, Dap launches with complete DNS integration:
+A naming system nobody can resolve is a naming system nobody uses. Resolution isn’t a feature—it’s the entire product. Without it, we’re selling vanity database entries.
 
-**Day One Compatibility**:
+**Day One Requirements** (Ship with mainnet or don’t launch):
 
-- Full DNS protocol support
-- DNSSEC implementation
-- Standard resolver compatibility
 - Browser extensions for Chrome, Firefox, Safari
-- Mobile applications for iOS and Android
+- Public DoH resolver at `dns.dap.sh`
+- Public DoT resolver for system-level integration
+- Mobile DNS configuration profiles
+- CLI tools for developers
+
+**Year One Goals**:
+
+- Aries browser with native resolution (Chromium first, WebKit and Servo to follow)
+- Integration discussions with major browsers
+- ISP partnership pilots
+- Enterprise resolver deployments
+
+**Technical Specifications**:
+
+- Full DNS protocol support (RFC compliant)
+- DNSSEC implementation
+- Response time under 50ms
+- 99.9% uptime SLA
+- IPv4 and IPv6 support
 
 **Advanced Features**:
 
 - SSH fingerprints (SSHFP)
 - TLS certificate pinning (TLSA)
 - Email authentication (DKIM/SPF/DMARC)
-- Custom record types for Web3
+- Custom record types for Web3
 
 **Measurable Success**:
 
-- Response time under 100ms
-- 99.9% uptime target
-- Daily query volume tracking
+- Daily query volume tracking
+- Resolution success rate
 - User adoption metrics
+- Geographic distribution
 
-We don’t launch until DNS resolution works like traditional DNS. **Users shouldn’t need to understand blockchain to use blockchain domains.**
+**Users shouldn’t need to understand blockchain to use blockchain domains.** They type a URL, it resolves. Everything else is implementation detail.
 
 ## 5. Ecosystem Development Strategy
 
@@ -293,7 +312,7 @@ TLD owners have complete control over their namespace:
 - Implement any policies
 - Run any infrastructure
 
-**The Crucial Insight**: “Own the whole .COM, not just a domain.” Instead of registering `mycompany.com`, own `.mycompany` and control unlimited domains beneath it.
+**The Crucial Insight**: “Own the whole `.com`, not just a domain.” Instead of registering `mycompany.com`, own `.mycompany` and control unlimited domains beneath it.
 
 ### 6.3 Anti‑Squatting Mechanisms
 
@@ -467,47 +486,71 @@ Unlike other projects with complex token swaps or conversion mechanisms:
 - **No wasted allocations**: Every GRP has a purpose
 - **Clear value proposition**: “420M GRP. 70% to miners. 30% to builders.”
 
-## 9. ICANN Cooperation, Not Competition
+## 9. A True Alternative Root
 
-### 9.1 Pragmatic Coexistence
+### 9.1 The Competition ICANN Never Had
 
-We don’t fight ICANN; we complement them:
+ICANN has operated without meaningful competition for decades. No pressure to innovate. No incentive to lower prices. No reason to improve. Dap changes that.
 
-**Reserved Namespace**: All existing ICANN TLDs are reserved in Dap. No conflicts, no confusion, no competition for existing namespaces.
+**We are not an extension of the existing internet. We are an alternative.**
 
-**Partnership Path**: ICANN registry operators can claim their TLDs on Dap, enabling:
+**No Reserved Namespaces**: Every TLD is available at genesis. `.com`, `.google`, `.amazon`—all of it. If Verisign wants `.com` on Dap, they can bid in the auction like everyone else. We don’t reserve their seat at our table.
 
-- Parallel operation on both systems
-- Enhanced functionality through blockchain
-- New revenue opportunities
-- Future‑proofing their infrastructure
+**No Special Treatment**: Legacy operators have no automatic claims, no DNSSEC proof shortcuts, no priority access. Dap is a level playing field. Your ICANN credentials mean nothing here—only your willingness to build and your GRP to bid.
 
-**Bridge Solutions**: We actively develop and support:
+**No Apologies**: We’re not “complementing” ICANN or “coexisting peacefully.” We’re demonstrating what a root namespace looks like when it’s run for users instead of bureaucrats. If that’s threatening, good. Competition should be.
 
-- DNS resolvers that check both systems
-- Migration tools for existing domains
-- Hybrid solutions for gradual adoption
-- Compatibility layers for legacy systems
+### 9.2 The Bitcoin Precedent
 
-### 9.2 Business Development
+Bitcoin didn’t ask permission from central banks. It didn’t say “we’ll avoid fiat currency denominations to prevent confusion.” It built an alternative monetary system and let people choose.
 
-We pursue partnerships aggressively:
+Dap follows the same logic. We’re not asking ICANN’s permission. We’re not worried about “name conflicts” with their system. We’re building something better and letting the market decide.
 
-**Registry Outreach**: Direct engagement with major registry operators about Dap integration opportunities.
+**Your resolver, your namespace, your choice.**
 
-**Browser Integration**: Negotiations with Chrome, Firefox, Safari, and Edge for native support. If needed, we’ll build our own browser while pursuing extensions.
+### 9.3 Resolution Is the Battlefield
 
-**Enterprise Solutions**: B2B offerings for companies wanting blockchain domains without complexity.
+The only question that matters: can users reach Dap domains?
 
-**Government Relations**: Proactive engagement with regulators to ensure compliance and legitimacy.
+If yes, we win. ICANN becomes one option among many—the legacy option, the expensive option, the slow option.
 
-We don’t wait for the world to discover us; we go to them.
+If no, we’re irrelevant. The best protocol in the world means nothing if nobody can use it.
+
+This is why resolution ships Day One. Not Year 3. Not “eventually.” Day One.
+
+**Resolution Strategy**:
+
+| Approach                                     | Timeline         | Reach                           |
+|----------------------------------------------|------------------|---------------------------------|
+| Browser extensions (Chrome, Firefox, Safari) | Launch           | Early adopters, developers      |
+| Public DoH/DoT resolver (`dns.dap.sh`)       | Launch           | Anyone who changes DNS settings |
+| Mobile configuration profiles                | Launch           | iOS/Android users               |
+| Aries browser (Chromium)                     | Year 1           | Full native experience          |
+| Aries browser (WebKit, Servo)                | Year 1-2         | Engine diversity                |
+| ISP partnerships                             | Year 1-2         | Mainstream users                |
+| Native browser integration                   | Ongoing          | Mass adoption (the real goal)   |
+
+### 9.4 What Happens to “Conflicts”?
+
+Someone owns `.google` on Dap. Google Inc. is unhappy. What happens?
+
+**Nothing special.** Google can:
+
+1. Bid on `.google` in Dap’s auction (they probably should)
+2. Ignore Dap entirely (their choice)
+3. Sue someone (good luck—we’re decentralized)
+
+What Google cannot do: demand we reserve their name, expect special treatment, or dictate our namespace policy.
+
+The Dap owner of `.google` has exactly the same rights as every other TLD owner. They must meet usage requirements or face reclaim. If they squat, they pay escalating fees. If they build, they thrive.
+
+**Trademarks are an ICANN concern.** In Dap’s namespace, you own what you win. Build something or lose it.
 
 ## 10. The Anti‑Maximalist Manifesto
 
 ### 10.1 What We’re NOT
 
-- **Not trying to destroy ICANN**: We coexist and complement
+- **Not asking ICANN’s permission**: We compete, we don’t petition
 - **Not purely decentralized**: We coordinate when necessary
 - **Not waiting for perfection**: We ship when good enough
 - **Not hostile to business**: We embrace commercial success
@@ -571,11 +614,11 @@ Unlike other projects’ headless approach, Dap has clear leadership:
 
 ### 11.3 Pragmatic Timeline
 
-**Year 0 (Testnet)**: Build, test, iterate. Launch when ready, not when scheduled.
+**Year 0 (Testnet)**: Build, test, iterate. Browser extensions and resolver ready. Launch when ready, not when scheduled.
 
-**Year 1**: 10+ production applications, 100+ active developers, 10K+ daily users.
+**Year 1**: Browser extensions live, Aries browser shipped, 10+ production applications, 100+ active developers, 10K+ daily users.
 
-**Year 2**: Browser integration, enterprise adoption, 100K+ daily users.
+**Year 2**: Native browser integration negotiations, enterprise adoption, 100K+ daily users.
 
 **Year 3**: Mainstream awareness, 1M+ daily users, profitable ecosystem.
 
@@ -598,12 +641,15 @@ Dap will succeed because we:
 - Pursue users aggressively, not passively
 - Build products people want, not protocols nobody uses
 - Measure success by adoption, not ideology
+- Compete directly instead of asking permission
 
 The internet deserves a naming system that is both decentralized AND useful. Previous projects proved you can build one or the other. Dap will prove you can build both.
 
+ICANN has had no competition for three decades. That ends now.
+
 Join us in building the future of internet naming. Not through endless debates and governance theater, but through shipping code and serving users.
 
-**Dap: Because the best protocol is the one that ships.**
+**Dap: The competition ICANN never had.**
 
 ---
 
@@ -613,7 +659,7 @@ Join us in building the future of internet naming. Not through endless debates a
 
 **Blockchain Parameters**:
 
-- Block time: 5 minutes
+- Block time: 2 minutes
 - Block size: 4 MB maximum
 - Consensus: VDF + VRF + Blake3 PoW
 - Token supply: 420,000,000 GRP
@@ -635,7 +681,7 @@ Join us in building the future of internet naming. Not through endless debates a
 
 - Full RFC compliance
 - DNSSEC support
-- < 100ms resolution target
+- < 50ms resolution target
 - 99.9% uptime SLA
 - IPv6 and IPv4 support
 
@@ -699,8 +745,10 @@ Join us in building the future of internet naming. Not through endless debates a
 
 **User Hostility**: Others expected users to understand blockchain complexity. We hide complexity behind simple, intuitive interfaces.
 
+**ICANN Deference**: Others reserved ICANN namespaces out of misplaced respect. We compete on merit.
+
 ---
 
 *Join us: [https://dap.sh](https://dap.sh)*
 
-*Version 6.1*
+*Version 7*

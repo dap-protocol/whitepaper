@@ -280,8 +280,8 @@
 
   <body>
     <aside>
-      <p>WARNING: DRAFT 6.1 — IN‑PROGRESS WHITEPAPER</p>
-      <p>UPDATED: 2025.12.07</p>
+      <p>WARNING: DRAFT 7 — IN‑PROGRESS WHITEPAPER</p>
+      <p>UPDATED: 2025.12.24</p>
     </aside>
 
     <section id="abstract">
@@ -386,31 +386,35 @@
 
       <p>Unlike projects that wait for users to discover them, Dap actively creates adoption:</p>
 
-      <p><strong>Phase 1: Builders (Months 0‑6)</strong></p>
+      <p><strong>Phase 1: Resolution & Builders (Months 0‑6)</strong></p>
 
       <ul>
+        <li>Browser extensions for Chrome, Firefox, Safari at launch</li>
+        <li>Public DoH/DoT resolver (`dns.dap.sh`) at launch</li>
         <li>Developer grants program ($10M allocated)</li>
         <li>Weekly hackathons and demo days</li>
         <li>Technical documentation and SDKs</li>
         <li>Direct outreach to Web3 projects</li>
       </ul>
 
-      <p><strong>Phase 2: Businesses (Months 6‑12)</strong></p>
+      <p><strong>Phase 2: Browser & Businesses (Months 6‑12)</strong></p>
 
       <ul>
+        <li>Aries browser ships (Chromium engine)</li>
+        <li>Native browser integration negotiations</li>
         <li>Enterprise sales team targeting Fortune 500</li>
         <li>White‑glove onboarding for major brands</li>
         <li>Partnership with existing registrars</li>
         <li>Integration with popular platforms</li>
       </ul>
 
-      <p><strong>Phase 3: Consumers (Months 12+)</strong></p>
+      <p><strong>Phase 3: Mass Adoption (Months 12+)</strong></p>
 
       <ul>
-        <li>Browser extensions for Chrome/Firefox/Safari</li>
-        <li>Mobile apps for iOS/Android</li>
+        <li>Mobile apps for iOS/Android with built-in resolution</li>
         <li>Marketing campaigns targeting specific communities</li>
         <li>Influencer partnerships and sponsorships</li>
+        <li>Consumer education initiatives</li>
       </ul>
 
       <p><strong>Pragmatic Governance</strong>: For the first two years, a small team makes decisions quickly. No months‑long governance debates about minor technical details. No committee paralysis. Decisions in days, not months.</p>
@@ -465,18 +469,37 @@
 
       <p>But we emphasize: <strong>Technical superiority means nothing without adoption</strong>. We judge our consensus by whether it enables products, not whether it wins academic awards.</p>
 
-      <h3>4.3 DNS Integration That Actually Works</h3>
+      <h3>4.3 Resolution: The Existential Priority</h3>
 
-      <p>Unlike other projects’ “build it and hope” approach, Dap launches with complete DNS integration:</p>
+      <p>A naming system nobody can resolve is a naming system nobody uses. Resolution isn’t a feature—it’s the entire product. Without it, we’re selling vanity database entries.</p>
 
-      <p><strong>Day One Compatibility</strong>:</p>
+      <p><strong>Day One Requirements</strong> (Ship with mainnet or don’t launch):</p>
 
       <ul>
-        <li>Full DNS protocol support</li>
-        <li>DNSSEC implementation</li>
-        <li>Standard resolver compatibility</li>
         <li>Browser extensions for Chrome, Firefox, Safari</li>
-        <li>Mobile applications for iOS and Android</li>
+        <li>Public DoH resolver at <code>dns.dap.sh</code></li>
+        <li>Public DoT resolver for system-level integration</li>
+        <li>Mobile DNS configuration profiles</li>
+        <li>CLI tools for developers</li>
+      </ul>
+
+      <p><strong>Year One Goals</strong>:</p>
+
+      <ul>
+        <li>Aries browser with native resolution (Chromium first, WebKit and Servo to follow)</li>
+        <li>Integration discussions with major browsers</li>
+        <li>ISP partnership pilots</li>
+        <li>Enterprise resolver deployments</li>
+      </ul>
+
+      <p><strong>Technical Specifications</strong>:</p>
+
+      <ul>
+        <li>Full DNS protocol support (RFC compliant)</li>
+        <li>DNSSEC implementation</li>
+        <li>Response time under 50ms</li>
+        <li>99.9% uptime SLA</li>
+        <li>IPv4 and IPv6 support</li>
       </ul>
 
       <p><strong>Advanced Features</strong>:</p>
@@ -485,19 +508,19 @@
         <li>SSH fingerprints (SSHFP)</li>
         <li>TLS certificate pinning (TLSA)</li>
         <li>Email authentication (DKIM/SPF/DMARC)</li>
-        <li>Custom record types for Web3</li>
+        <li>Custom record types for Web3</li>
       </ul>
 
       <p><strong>Measurable Success</strong>:</p>
 
       <ul>
-        <li>Response time under 100ms</li>
-        <li>99.9% uptime target</li>
-        <li>Daily query volume tracking</li>
+        <li>Daily query volume tracking</li>
+        <li>Resolution success rate</li>
         <li>User adoption metrics</li>
+        <li>Geographic distribution</li>
       </ul>
 
-      <p>We don’t launch until DNS resolution works like traditional DNS. <strong>Users shouldn’t need to understand blockchain to use blockchain domains.</strong></p>
+      <p><strong>Users shouldn’t need to understand blockchain to use blockchain domains.</strong> They type a URL, it resolves. Everything else is implementation detail.</p>
     </section>
 
     <section id="strategy">
@@ -626,7 +649,7 @@
         <li>Run any infrastructure</li>
       </ul>
 
-      <p><strong>The Crucial Insight</strong>: “Own the whole .COM, not just a domain.” Instead of registering <code>mycompany.com</code>, own <code>.mycompany</code> and control unlimited domains beneath it.</p>
+      <p><strong>The Crucial Insight</strong>: “Own the whole <code>.com</code>, not just a domain.” Instead of registering <code>mycompany.com</code>, own <code>.mycompany</code> and control unlimited domains beneath it.</p>
 
       <h3>6.3 Anti‑Squatting Mechanisms</h3>
 
@@ -830,44 +853,66 @@ TLD {
     </section>
 
     <section id="icann">
-      <h2>9. ICANN Cooperation, Not Competition</h2>
-      <h3>9.1 Pragmatic Coexistence</h3>
+      <h2>9. A True Alternative Root</h2>
+      <h3>9.1 The Competition ICANN Never Had</h3>
 
-      <p>We don’t fight ICANN; we complement them:</p>
+      <p>ICANN has operated without meaningful competition for decades. No pressure to innovate. No incentive to lower prices. No reason to improve. Dap changes that.</p>
 
-      <p><strong>Reserved Namespace</strong>: All existing ICANN TLDs are reserved in Dap. No conflicts, no confusion, no competition for existing namespaces.</p>
+      <p><strong>We are not an extension of the existing internet. We are an alternative.</strong></p>
 
-      <p><strong>Partnership Path</strong>: ICANN registry operators can claim their TLDs on Dap, enabling:</p>
+      <p><strong>No Reserved Namespaces</strong>: Every TLD is available at genesis. <code>.com</code>, <code>.google</code>, <code>.amazon</code>—all of it. If Verisign wants <code>.com</code> on Dap, they can bid in the auction like everyone else. We don’t reserve their seat at our table.</p>
 
-      <ul>
-        <li>Parallel operation on both systems</li>
-        <li>Enhanced functionality through blockchain</li>
-        <li>New revenue opportunities</li>
-        <li>Future‑proofing their infrastructure</li>
-      </ul>
+      <p><strong>No Special Treatment</strong>: Legacy operators have no automatic claims, no DNSSEC proof shortcuts, no priority access. Dap is a level playing field. Your ICANN credentials mean nothing here—only your willingness to build and your GRP to bid.</p>
 
-      <p><strong>Bridge Solutions</strong>: We actively develop and support:</p>
+      <p><strong>No Apologies</strong>: We’re not “complementing” ICANN or “coexisting peacefully.” We’re demonstrating what a root namespace looks like when it’s run for users instead of bureaucrats. If that’s threatening, good. Competition should be.</p>
 
-      <ul>
-        <li>DNS resolvers that check both systems</li>
-        <li>Migration tools for existing domains</li>
-        <li>Hybrid solutions for gradual adoption</li>
-        <li>Compatibility layers for legacy systems</li>
-      </ul>
+      <h3>9.2 The Bitcoin Precedent</h3>
 
-      <h3>9.2 Business Development</h3>
+      <p>Bitcoin didn’t ask permission from central banks. It didn’t say “we’ll avoid fiat currency denominations to prevent confusion.” It built an alternative monetary system and let people choose.</p>
 
-      <p>We pursue partnerships aggressively:</p>
+      <p>Dap follows the same logic. We’re not asking ICANN’s permission. We’re not worried about “name conflicts” with their system. We’re building something better and letting the market decide.</p>
 
-      <p><strong>Registry Outreach</strong>: Direct engagement with major registry operators about Dap integration opportunities.</p>
+      <p><strong>Your resolver, your namespace, your choice.</strong></p>
 
-      <p><strong>Browser Integration</strong>: Negotiations with Chrome, Firefox, Safari, and Edge for native support. If needed, we’ll build our own browser while pursuing extensions.</p>
+      <h3>9.3 Resolution Is the Battlefield</h3>
 
-      <p><strong>Enterprise Solutions</strong>: B2B offerings for companies wanting blockchain domains without complexity.</p>
+      <p>The only question that matters: can users reach Dap domains?</p>
 
-      <p><strong>Government Relations</strong>: Proactive engagement with regulators to ensure compliance and legitimacy.</p>
+      <p>If yes, we win. ICANN becomes one option among many—the legacy option, the expensive option, the slow option.</p>
 
-      <p>We don’t wait for the world to discover us; we go to them.</p>
+      <p>If no, we’re irrelevant. The best protocol in the world means nothing if nobody can use it.</p>
+
+      <p>This is why resolution ships Day One. Not Year 3. Not “eventually.” Day One.</p>
+
+      <p><strong>Resolution Strategy</strong>:</p>
+
+      <pre class="dedent"><code class="language-markdown">
+| Approach                                     | Timeline         | Reach                           |
+|----------------------------------------------|------------------|---------------------------------|
+| Browser extensions (Chrome, Firefox, Safari) | Launch           | Early adopters, developers      |
+| Public DoH/DoT resolver (`dns.dap.sh`)       | Launch           | Anyone who changes DNS settings |
+| Mobile configuration profiles                | Launch           | iOS/Android users               |
+| Aries browser (Chromium)                     | Year 1           | Full native experience          |
+| Aries browser (WebKit, Servo)                | Year 1-2         | Engine diversity                |
+| ISP partnerships                             | Year 1-2         | Mainstream users                |
+| Native browser integration                   | Ongoing          | Mass adoption (the real goal)   |
+      </code></pre>
+
+      <h3>9.4 What Happens to “Conflicts”?</h3>
+
+      <p>Someone owns <code>.google</code> on Dap. Google Inc. is unhappy. What happens?</p>
+
+      <p><strong>Nothing special.</strong> Google can:</p>
+
+      1. Bid on <code>.google</code> in Dap’s auction (they probably should)
+      2. Ignore Dap entirely (their choice)
+      3. Sue someone (good luck—we’re decentralized)
+
+      <p>What Google cannot do: demand we reserve their name, expect special treatment, or dictate our namespace policy.</p>
+
+      <p>The Dap owner of <code>.google</code> has exactly the same rights as every other TLD owner. They must meet usage requirements or face reclaim. If they squat, they pay escalating fees. If they build, they thrive.</p>
+
+      <p><strong>Trademarks are an ICANN concern.</strong> In Dap’s namespace, you own what you win. Build something or lose it.</p>
     </section>
 
     <section id="focus">
@@ -875,7 +920,7 @@ TLD {
       <h3>10.1 What We’re NOT</h3>
 
       <ul>
-        <li><strong>Not trying to destroy ICANN</strong>: We coexist and complement</li>
+        <li><strong>Not asking ICANN’s permission</strong>: We compete, we don’t petition</li>
         <li><strong>Not purely decentralized</strong>: We coordinate when necessary</li>
         <li><strong>Not waiting for perfection</strong>: We ship when good enough</li>
         <li><strong>Not hostile to business</strong>: We embrace commercial success</li>
@@ -947,11 +992,11 @@ TLD {
 
       <h3>11.3 Pragmatic Timeline</h3>
 
-      <p><strong>Year 0 (Testnet)</strong>: Build, test, iterate. Launch when ready, not when scheduled.</p>
+      <p><strong>Year 0 (Testnet)</strong>: Build, test, iterate. Browser extensions and resolver ready. Launch when ready, not when scheduled.</p>
 
-      <p><strong>Year 1</strong>: 10+ production applications, 100+ active developers, 10K+ daily users.</p>
+      <p><strong>Year 1</strong>: Browser extensions live, Aries browser shipped, 10+ production applications, 100+ active developers, 10K+ daily users.</p>
 
-      <p><strong>Year 2</strong>: Browser integration, enterprise adoption, 100K+ daily users.</p>
+      <p><strong>Year 2</strong>: Native browser integration negotiations, enterprise adoption, 100K+ daily users.</p>
 
       <p><strong>Year 3</strong>: Mainstream awareness, 1M+ daily users, profitable ecosystem.</p>
 
@@ -979,13 +1024,16 @@ TLD {
         <li>Pursue users aggressively, not passively</li>
         <li>Build products people want, not protocols nobody uses</li>
         <li>Measure success by adoption, not ideology</li>
+        <li>Compete directly instead of asking permission</li>
       </ul>
 
       <p>The internet deserves a naming system that is both decentralized AND useful. Previous projects proved you can build one or the other. Dap will prove you can build both.</p>
 
+      <p>ICANN has had no competition for three decades. That ends now.</p>
+
       <p>Join us in building the future of internet naming. Not through endless debates and governance theater, but through shipping code and serving users.</p>
 
-      <p><strong>Dap: Because the best protocol is the one that ships.</strong></p>
+      <p><strong>Dap: The competition ICANN never had.</strong></p>
     </section>
 
     <hr/>
@@ -997,7 +1045,7 @@ TLD {
       <p><strong>Blockchain Parameters</strong>:</p>
 
       <ul>
-        <li>Block time: 5 minutes</li>
+        <li>Block time: 2 minutes</li>
         <li>Block size: 4 MB maximum</li>
         <li>Consensus: VDF + VRF + Blake3 PoW</li>
         <li>Token supply: 420,000,000 GRP</li>
@@ -1023,7 +1071,7 @@ TLD {
       <ul>
         <li>Full RFC compliance</li>
         <li>DNSSEC support</li>
-        <li>< 100ms resolution target</li>
+        <li>< 50ms resolution target</li>
         <li>99.9% uptime SLA</li>
         <li>IPv6 and IPv4 support</li>
       </ul>
@@ -1100,14 +1148,16 @@ TLD {
       <p><strong>Documentation Negligence</strong>: Others never properly documented APIs or tools. We maintain comprehensive, updated documentation.</p>
 
       <p><strong>User Hostility</strong>: Others expected users to understand blockchain complexity. We hide complexity behind simple, intuitive interfaces.</p>
+
+      <p><strong>ICANN Deference</strong>: Others reserved ICANN namespaces out of misplaced respect. We compete on merit.</p>
     </section>
 
     <hr/>
 
     <section id="fin">
       <p>Join us: <a href="https://dap.sh">https://dap.sh</a></p>
-      <p>Version 6.1 - Draft</p>
-      <p>Last Updated: 2025.12.07</p>
+      <p>Version 7 - Draft</p>
+      <p>Last Updated: 2025.12.24</p>
     </section>
   </body>
 
