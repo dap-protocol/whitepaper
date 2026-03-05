@@ -1,5 +1,5 @@
 # Dap: A Pragmatic Approach to Decentralized Naming
-**Version 7**
+**Version 8**
 
 ## 1. Abstract
 
@@ -156,7 +156,7 @@ Dap implements a revolutionary consensus mechanism combining three proven techn
 This “Trinity” design delivers:
 
 - 95% energy reduction versus traditional PoW
-- Predictable 5‑minute block times
+- Predictable 2‑minute block times
 - Fair mining distribution without pools
 - Sustainable security model
 
@@ -668,14 +668,15 @@ Join us in building the future of internet naming. Not through endless debates a
 
 **Covenant Types**:
 
-- AUCTION: Initiate TLD auction
+- NONE: No covenant (standard transaction)
+- OPEN: Initiate TLD auction
 - BID: Place auction bid
 - REVEAL: Reveal blind bid
-- CLAIM: Claim won auction
 - REGISTER: Register TLD ownership
 - UPDATE: Update TLD records
 - TRANSFER: Transfer TLD ownership
 - RENEW: Renew TLD registration
+- PENALIZE: Anti-squatting enforcement
 
 **DNS Integration**:
 
@@ -751,4 +752,4 @@ Join us in building the future of internet naming. Not through endless debates a
 
 *Join us: [https://dap.sh](https://dap.sh)*
 
-*Version 7*
+*Version 8*
