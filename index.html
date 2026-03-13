@@ -10,6 +10,7 @@
     <link rel="icon" href="favicon.svg"/>
     <link rel="stylesheet" href="./reset.css"/>
     <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/default.min.css"/>
+    <link rel="stylesheet" href="https://uchu.style/color.css"/>
 
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
 
@@ -113,6 +114,12 @@
         @media (max-width: 900px) {
           padding-left: var(--padding);
           padding-right: var(--padding);
+        }
+
+        code {
+          background-color: var(--uchu-light-yellow);
+          font-size: 90%;
+          padding: 0.5%;
         }
       }
 
@@ -1204,16 +1211,16 @@ TLD {
       <p><strong>State machine</strong>:</p>
 
       <pre class="dedent"><code class="language-markdown">
-NONE ——→ OPEN
-OPEN ——→ BID
-BID  ——→ BID (multiple bids per auction)
-BID  ——→ REVEAL
-REVEAL → REGISTER
-REGISTER ——→ UPDATE / RENEW / TRANSFER
-UPDATE   ——→ UPDATE / RENEW / TRANSFER
-RENEW    ——→ UPDATE / RENEW / TRANSFER
-TRANSFER ——→ UPDATE / RENEW / TRANSFER
-PENALIZE ——→ OPEN (triggers re‑auction)
+NONE     → OPEN
+OPEN     → BID
+BID      → BID (multiple bids per auction)
+BID      → REVEAL
+REVEAL   → REGISTER
+REGISTER → UPDATE / RENEW / TRANSFER
+UPDATE   → UPDATE / RENEW / TRANSFER
+RENEW    → UPDATE / RENEW / TRANSFER
+TRANSFER → UPDATE / RENEW / TRANSFER
+PENALIZE → OPEN (triggers re‑auction)
       </code></pre>
 
       <p><strong>Auction timing (mainnet)</strong>:</p>
@@ -1259,7 +1266,7 @@ PENALIZE ——→ OPEN (triggers re‑auction)
 
       <p><strong>Sighash types</strong>:</p>
 
-      <pre class="dedent"><code class="language-markdown">
+      <pre class="dedent"><code class="language-plain hljs">
 | Value | Type              |
 |-------|-------------------|
 | 0x01  | SIGHASH_ALL       |
