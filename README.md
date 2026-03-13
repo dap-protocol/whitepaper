@@ -1,5 +1,5 @@
-# Dap: A Pragmatic Approach to Decentralized Naming
-**Version 8**
+# Dap: A Pragmatic Approach to Decentralized Naming
+**Version 9**
 
 ## 1. Abstract
 
@@ -151,7 +151,7 @@ Dap implements a revolutionary consensus mechanism combining three proven techn
 
 **Verifiable Random Functions (VRF)**: Provide provably fair randomness for block producer selection and auction resolution. No more mining pool centralization or auction manipulation.
 
-**Blake3 Proof‑of‑Work**: The fastest cryptographic hash function available, providing ASIC resistance and efficient verification.
+**Blake3 Proof‑of‑Work**: The fastest cryptographic hash function available, providing efficient verification.
 
 This “Trinity” design delivers:
 
@@ -278,7 +278,6 @@ Dap’s auction system prioritizes utilization:
 - Two‑letter TLDs: 10K GRP minimum
 - Three‑letter TLDs: 1K GRP minimum
 - Generic TLDs: 100 GRP minimum
-- Branded TLDs: 10 GRP minimum
 
 **Build Requirements**: TLD winners must:
 
@@ -397,11 +396,11 @@ The `personal_since` field tracks when the TLD entered personal class, enabling 
 
 **Design Rationale**
 
-This approach succeeds where cap‑based exemptions (e.g., "4‑10 personal TLDs per wallet") would fail:
+This approach succeeds where cap‑based exemptions (e.g., “4‑10 personal TLDs per wallet”) would fail:
 
 - **No Sybil vulnerability**: Creating multiple wallets doesn’t help—each TLD costs 3× to maintain
 - **Self‑enforcing**: No subjective judgment calls or governance overhead
-- **Clear social contract**: "Personal TLDs are yours, not investment vehicles"—the restrictions become a feature
+- **Clear social contract**: “Personal TLDs are yours, not investment vehicles”—the restrictions become a feature
 
 ## 7. Governance: Efficient, Not Perfect
 
@@ -445,6 +444,8 @@ All special powers expire automatically:
 
 Total Supply: **420,000,000 GRP**
 
+The base denomination is the **grippie** (plural: grippies). 1 GRP = 100,000,000 grippies, analogous to Bitcoin’s satoshi. All consensus math operates on grippies as integer values; floating‑point arithmetic is never used.
+
 **Distribution**:
 
 - Mining Rewards: 70% (294M GRP)
@@ -475,7 +476,7 @@ All TLD auction proceeds and penalty burns are permanently removed from circula
 
 **Economic Security**: As supply decreases through burning while demand increases through adoption, GRP becomes increasingly valuable, ensuring long‑term mining incentives even as block rewards decrease.
 
-**Why True Burns**: Penalty burns go to a provably unspendable address rather than a treasury. This eliminates perverse incentives—no constituency profits from rule‑breaking. "Break the rules, value disappears" is simpler to explain and harder to politicize than redistribution schemes.
+**Why True Burns**: Penalty burns go to a provably unspendable address rather than a treasury. This eliminates perverse incentives—no constituency profits from rule‑breaking. “Break the rules, value disappears” is simpler to explain and harder to politicize than redistribution schemes.
 
 ### 8.3 No Pre-mine Games
 
@@ -492,7 +493,7 @@ Unlike other projects with complex token swaps or conversion mechanisms:
 
 ICANN has operated without meaningful competition for decades. No pressure to innovate. No incentive to lower prices. No reason to improve. Dap changes that.
 
-**We are not an extension of the existing internet. We are an alternative.**
+**We are not an extension of the existing internet. We are an alternative.**
 
 **No Reserved Namespaces**: Every TLD is available at genesis. `.com`, `.google`, `.amazon`—all of it. If Verisign wants `.com` on Dap, they can bid in the auction like everyone else. We don’t reserve their seat at our table.
 
@@ -506,7 +507,7 @@ Bitcoin didn’t ask permission from central banks. It didn’t say “we’ll a
 
 Dap follows the same logic. We’re not asking ICANN’s permission. We’re not worried about “name conflicts” with their system. We’re building something better and letting the market decide.
 
-**Your resolver, your namespace, your choice.**
+**Your resolver, your namespace, your choice.**
 
 ### 9.3 Resolution Is the Battlefield
 
@@ -630,12 +631,12 @@ Dap represents a fundamental shift in how blockchain projects approach developme
 
 The domain name system is too important to leave in the hands of:
 
-- ICANN’s bureaucracy and gatekeeping
+- ICANN’s bureaucracy and gatekeeping
 - Blockchain projects that refuse to ship
 - Ideological purists who hate users
-- Speculators who build nothing
+- Speculators who build nothing
 
-Dap will succeed because we:
+Dap will succeed because we:
 
 - Ship code weekly, not yearly
 - Pursue users aggressively, not passively
@@ -657,26 +658,244 @@ Join us in building the future of internet naming. Not through endless debates a
 
 ### Appendix A: Technical Specifications
 
-**Blockchain Parameters**:
+#### A.1 Blockchain Parameters
 
-- Block time: 2 minutes
-- Block size: 4 MB maximum
-- Consensus: VDF + VRF + Blake3 PoW
-- Token supply: 420,000,000 GRP
-- Halving schedule: Every 4 years
-- Minimum TX fee: 0.01 GRP
+| Parameter              | Value                                 |
+|------------------------|---------------------------------------|
+| Block time             | 2 minutes (120 seconds)               |
+| Block size             | 4 MB maximum                          |
+| Consensus              | VDF + VRF + Blake3 PoW                |
+| Token                  | GRP                                   |
+| Base denomination      | grippies                              |
+| Conversion             | 1 GRP = 100,000,000 grippies          |
+| Total supply           | 420,000,000 GRP (4.2 × 10¹⁶ grippies) |
+| Halving interval       | 1,050,000 blocks (~4 years)           |
+| Initial block reward   | 140 GRP                               |
+| Minimum TX fee         | 0.01 GRP (1,000,000 grippies)         |
+| Dust threshold         | 546 grippies                          |
+| Difficulty adjustment  | Every 720 blocks (~24 hours)          |
+| Adjustment range       | 0.25× – 4× per period                 |
 
-**Covenant Types**:
+#### A.2 Consensus: The Trinity
 
-- NONE: No covenant (standard transaction)
-- OPEN: Initiate TLD auction
-- BID: Place auction bid
-- REVEAL: Reveal blind bid
-- REGISTER: Register TLD ownership
-- UPDATE: Update TLD records
-- TRANSFER: Transfer TLD ownership
-- RENEW: Renew TLD registration
-- PENALIZE: Anti-squatting enforcement
+Dap’s consensus combines three cryptographic mechanisms that must all pass for a block to be valid.
+
+##### Verifiable Delay Function (VDF)
+
+| Parameter              | Value                                                          |
+|------------------------|----------------------------------------------------------------|
+| Scheme                 | Wesolowski (2019)                                              |
+| Modulus                | RSA‑2048 challenge number (617 digits, no known factorization) |
+| Security parameter     | 128 bits                                                       |
+| Duration               | 10 seconds (mainnet), 0.1 seconds (regtest)                    |
+| Iteration rate         | ~100,000 iterations/second                                     |
+| Production iterations  | ~1,000,000 per block                                           |
+| Proof size             | 512 bytes (256‑byte output + 256‑byte proof)                   |
+
+The VDF challenge is the previous block’s hash (32 zero bytes for genesis). Proof generation computes g^(2^t) mod N via t sequential squarings—inherently serial, impossible to parallelize. Verification uses the Wesolowski equation: y = π^l · g^r mod N, where l is a 128‑bit challenge prime derived via Fiat‑Shamir and r = 2^t mod l. Verification runs in O(log t) time, making it orders of magnitude faster than generation.
+
+**Purpose**: Enforces temporal ordering between blocks. No amount of computational resources can produce a valid VDF proof faster than the required delay, preventing timestamp manipulation and ensuring minimum spacing between blocks.
+
+##### Verifiable Random Function (VRF)
+
+| Parameter        | Value                                            |
+|------------------|--------------------------------------------------|
+| Scheme           | ECVRF‑SECP256K1‑SHA256‑TAI (RFC 9381)            |
+| Curve            | secp256k1                                        |
+| Suite byte       | 0x01                                             |
+| Hash‑to‑curve    | Try‑and‑increment (up to 256 attempts)           |
+| Proof size       | 97 bytes (33‑byte gamma + 32‑byte c + 32‑byte s) |
+| Output size      | 32 bytes                                         |
+| Nonce derivation | Deterministic (RFC 6979‑style)                   |
+
+The VRF input is the previous block’s hash. The miner computes a proof using their private key; the resulting 32‑byte output is compared against a VRF difficulty target. If output ≤ target, the miner is eligible to produce the next block. Ineligible miners skip immediately—no energy wasted on VDF or PoW computation.
+
+Proof‑to‑hash follows RFC 9381 §5.2: output = SHA‑256(suite ‖ 0x03 ‖ gamma), ensuring the random output is uniformly distributed and cannot be biased.
+
+**Purpose**: Provides provably fair, unpredictable block producer selection. Eligibility is tied to a specific private key and cannot be delegated, preventing mining pool centralization.
+
+##### Blake3 Proof‑of‑Work
+
+| Parameter     | Value                                        |
+|---------------|----------------------------------------------|
+| Hash function | Blake3                                       |
+| Input         | Serialized header (786 bytes) ‖ 8‑byte nonce |
+| Target        | 32‑byte big‑endian threshold                 |
+| Verification  | Single hash comparison                       |
+
+The miner searches for a nonce such that Blake3(header ‖ nonce) ≤ blake3Target. Blake3 is the fastest general‑purpose cryptographic hash function available, providing efficient verification with a single hash operation and low ASIC incentive due to lower PoW difficulty requirements enabled by VRF pre-filtering.
+
+**Purpose**: Provides Byzantine fault tolerance and Sybil resistance. The PoW difficulty is adjusted independently from VRF difficulty—both retarget every 720 blocks but track separate targets.
+
+##### How the Trinity Interlocks
+
+Block production proceeds in three sequential stages:
+
+1. **VRF eligibility check** (~15 ms): Compute VRF proof and check output ≤ vrfTarget. If ineligible, stop immediately.
+2. **VDF proof generation** (~10 seconds): Compute Wesolowski VDF over previous block’s hash. Enforces minimum wall‑clock delay.
+3. **Blake3 PoW mining** (variable): Search for valid nonce against blake3Target. Duration depends on difficulty and hashrate.
+
+Block validation reverses the cost profile—cheapest rejections first:
+
+1. **VDF verification** (~10 ms): Verify Wesolowski equation.
+2. **VRF verification** (~1 ms): Recompute output from miner’s public key, verify eligibility.
+3. **Blake3 PoW verification** (~1 μs): Recompute single hash, compare against target.
+
+All three must pass. A block failing any check is rejected.
+
+**Security guarantees**:
+
+- VDF prevents fast‑forwarding: no parallelism produces a valid proof faster than the required delay
+- VRF prevents centralization: eligibility is per‑key and non‑transferable
+- Blake3 PoW prevents costless block production: real computational work is required
+
+#### A.3 Block Header
+
+The block header is ~858 bytes (compared to Bitcoin’s 80 bytes), reflecting the additional proof data required by Trinity consensus.
+
+| Field          | Size      | Encoding          | Description                        |
+|----------------|-----------|-------------------|------------------------------------|
+| Version        | 4 bytes   | uint32 LE         | Protocol version                   |
+| PrevBlock      | 32 bytes  | raw               | Hash of previous block             |
+| MerkleRoot     | 32 bytes  | raw               | Blake3 merkle root of transactions |
+| NamesRoot      | 32 bytes  | raw               | Name state Merkle root (see below) |
+| Timestamp      | 8 bytes   | uint64 LE         | Unix timestamp (seconds)           |
+| VDF Output     | 256 bytes | raw               | Wesolowski VDF computed value      |
+| VDF Proof      | 256 bytes | raw (zero‑padded) | Wesolowski proof π                 |
+| VDF Iterations | 4 bytes   | uint32 LE         | Number of sequential iterations    |
+| VRF Gamma      | 33 bytes  | compressed point  | VRF proof point                    |
+| VRF C          | 32 bytes  | raw               | VRF challenge scalar               |
+| VRF S          | 32 bytes  | raw               | VRF response scalar                |
+| VRF Output     | 32 bytes  | raw               | 32‑byte pseudorandom output        |
+| Miner Pubkey   | 33 bytes  | compressed point  | Miner’s secp256k1 public key       |
+| Blake3 Nonce   | 8 bytes   | uint64 LE         | PoW nonce                          |
+| VRF Target     | 32 bytes  | raw               | VRF difficulty target              |
+| Blake3 Target  | 32 bytes  | raw               | Blake3 difficulty target           |
+
+**Block hash**: Blake3(Version through Miner Pubkey ‖ Blake3 Nonce). The hash covers 786 bytes of header data plus the 8‑byte nonce. VRF Target and Blake3 Target are excluded from the hash input—they are consensus‑derived values, not miner‑chosen.
+
+**Merkle tree**: Blake3‑based binary tree over transaction hashes (not double‑SHA256).
+
+**NamesRoot**: A Blake3 Merkle tree over all actively owned TLDs. Only names in ownership states (REGISTER, UPDATE, RENEW, TRANSFER) are included; names still in auction (OPEN, BID, REVEAL) are excluded. Each leaf is the Blake3 hash of a canonical string encoding the name’s hash, covenant state, registration height, owner, expiration block, TLD class, and personal‑since height. Leaves are sorted deterministically by name hash before tree construction, ensuring all nodes compute an identical root. Validators recompute the NamesRoot after processing a block’s covenants and reject any block whose header commitment does not match.
+
+#### A.4 Covenant Types
+
+Dap uses 9 covenant types (byte values 0–8). Unlike some UTXO naming systems, Dap does not implement CLAIM, REDEEM, or REVOKE covenants; their functions are handled by REGISTER and PENALIZE instead.
+
+| Value | Type       | Description                                 |
+|-------|------------|---------------------------------------------|
+| 0     | `NONE`     | Standard transaction (no covenant)          |
+| 1     | `OPEN`     | Initiate a TLD auction                      |
+| 2     | `BID`      | Place a sealed bid                          |
+| 3     | `REVEAL`   | Reveal a previously sealed bid              |
+| 4     | `REGISTER` | Claim TLD ownership (auction winner)        |
+| 5     | `UPDATE`   | Update TLD DNS records                      |
+| 6     | `RENEW`    | Renew TLD registration                      |
+| 7     | `TRANSFER` | Transfer TLD to a new owner                 |
+| 8     | `PENALIZE` | Anti‑squatting enforcement (consensus‑only) |
+
+PENALIZE cannot be submitted in user transactions. The consensus layer generates penalize actions automatically at every enforcement interval (2,016 blocks, ~2.8 days).
+
+**State machine**:
+
+```
+NONE ——→ OPEN
+OPEN ——→ BID
+BID  ——→ BID (multiple bids per auction)
+BID  ——→ REVEAL
+REVEAL → REGISTER
+REGISTER ——→ UPDATE / RENEW / TRANSFER
+UPDATE   ——→ UPDATE / RENEW / TRANSFER
+RENEW    ——→ UPDATE / RENEW / TRANSFER
+TRANSFER ——→ UPDATE / RENEW / TRANSFER
+PENALIZE ——→ OPEN (triggers re‑auction)
+```
+
+**Auction timing (mainnet)**:
+
+| Phase                 | Duration  | Block count | Description                    |
+|-----------------------|-----------|-------------|--------------------------------|
+| OPEN → BID end        | ~5 days   | 3,600       | Sealed bids accepted           |
+| BID end → REVEAL end  | ~1 day    | 720         | Bidders reveal sealed bids     |
+| REVEAL end → REGISTER | Immediate | —           | Winner may claim at any time   |
+| Expiration            | ~6 months | 131,400     | TLD expires if not renewed     |
+| Renewal window        | ~1 month  | 21,900      | Grace period before expiration |
+
+Full lifecycle: OPEN at block N → bids accepted until N+3,600 → reveals accepted until N+4,320 → winner registers after N+4,320 → registration expires at registration block + 131,400.
+
+**Minimum bids by TLD length**:
+
+| TLD length    | Minimum bid | In grippies        |
+|---------------|-------------|--------------------|
+| 1 character   | 100,000 GRP | 10,000,000,000,000 |
+| 2 characters  | 10,000 GRP  | 1,000,000,000,000  |
+| 3 characters  | 1,000 GRP   | 100,000,000,000    |
+| 4+ characters | 100 GRP     | 10,000,000,000     |
+
+#### A.5 Cryptographic Primitives
+
+All cryptographic operations use audited, constant‑time implementations from the `@noble` library family.
+
+**Hash functions**:
+
+| Algorithm   | Usage                                                                                                           |
+|-------------|-----------------------------------------------------------------------------------------------------------------|
+| Blake3      | Block hashing, PoW, merkle trees, sighash, name hashing, blind hash computation                                 |
+| SHA‑256     | VDF internals (hash‑to‑group, hash‑to‑prime, Fiat‑Shamir), VRF (hash‑to‑curve, challenge, proof‑to‑hash, nonce) |
+| RIPEMD‑160  | hash160 = SHA‑256 then RIPEMD‑160, used for address derivation                                                  |
+
+**Signature scheme**: ECDSA over secp256k1 exclusively. Recoverable signatures with DER encoding. No Schnorr or ed25519 in consensus.
+
+**Sighash types**:
+
+| Value | Type                |
+|-------|---------------------|
+| 0x01  | `SIGHASH_ALL`       |
+| 0x02  | `SIGHASH_NONE`      |
+| 0x03  | `SIGHASH_SINGLE`    |
+| 0x80  | `ANYONECANPAY` flag |
+
+Sighash digests are computed with Blake3, not double‑SHA256.
+
+**Key derivation and encryption**:
+
+| Primitive  | Usage                                    |
+|------------|------------------------------------------|
+| AES‑GCM    | Symmetric encryption                     |
+| PBKDF2     | Password‑based key derivation            |
+| HKDF       | Key expansion                            |
+| HMAC       | Message authentication (SHA‑256/SHA‑512) |
+| scrypt     | Wallet file encryption                   |
+
+**Address encoding**: Bech32 (BIP‑173 compatible) with human‑readable prefix, witness version, and data payload.
+
+#### A.6 Network Configuration
+
+| Network | P2P Port | RPC Port | Wallet Port | Magic Bytes  |
+|---------|----------|----------|-------------|--------------|
+| Mainnet | 12038    | 12039    | 14038       | `0xd4f00d42` |
+| Testnet | 13038    | 13039    | 15038       | `0xd4f00d43` |
+| Regtest | 14038    | 14039    | 16038       | `0xd4f00d44` |
+
+#### A.7 P2P Protocol
+
+**Message format**: Every P2P message has a 9‑byte header followed by a variable‑length payload.
+
+| Field          | Size    | Description                    |
+|----------------|---------|--------------------------------|
+| Magic          | 4 bytes | Network identifier (LE uint32) |
+| Command        | 1 byte  | Packet type enum               |
+| Payload length | 4 bytes | Payload size (LE uint32)       |
+
+Maximum message size is 8 MB. The magic bytes in every message header must match the network; mismatches cause immediate disconnection.
+
+**Connection limits**: 8 outbound and 8 inbound peers by default, up to 50 total. Production configurations scale inbound limits higher.
+
+**Handshake**: On connect the initiating peer sends a VERSION message (version, services, timestamp, addresses, random nonce, user agent, chain height, relay preference). The remote responds with its own VERSION followed by VERACK. Self‑connections are detected via nonce comparison. Peers below protocol version 70000 are rejected.
+
+**Transport encryption**: Optional TLS 1.3 at the TCP layer. Production mainnet configuration requires it (cipher suites: TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_AES_128_GCM_SHA256). Testnet and regtest allow plaintext.
+
+**Peer scoring**: Each misbehavior adds points toward a ban threshold of 100. Reaching the threshold results in a 24‑hour ban. Examples: invalid block announcement (+50), excessive inventory items (+25), transaction rate‑limit violation (+20), unknown message type (+10), rejected transaction (+5). A separate 0‑1 quality score (starting at 0.5) tracks long‑term peer reliability; peers dropping below 0.1 are banned.
 
 **DNS Integration**:
 
@@ -706,13 +925,13 @@ Join us in building the future of internet naming. Not through endless debates a
 
 ### Appendix C: Success Stories We Want
 
-**Year 1**: “Startup Raises $5M Using `.startup` TLD”
+**Year 1**: “Startup Raises $5M Using `.mystartup` TLD”
 
-- Company uses `.startup` domain for all properties
+- Company uses `.mystartup` domain for all properties
 - Investors see innovation mindset
 - Media coverage drives Dap awareness
 
-**Year 2**: “Fortune 500 Migrates to `.brand` TLD”
+**Year 2**: “Fortune 500 Migrates to `.mybrand` TLD”
 
 - Major corporation adopts Dap for brand protection
 - Demonstrates enterprise viability
@@ -752,4 +971,4 @@ Join us in building the future of internet naming. Not through endless debates a
 
 *Join us: [https://dap.sh](https://dap.sh)*
 
-*Version 8*
+*Version 9*
