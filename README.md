@@ -373,7 +373,7 @@ By year 3, the owner has paid enough premium renewals (3× annually) that specul
 
 **Personal → Standard Conversion**
 
-Circumstances change—a personal namespace can organically grow into a community one. A personal TLD can convert to standard class under the following consensus-enforced conditions:
+Circumstances change. A personal namespace can organically grow into a community one. A personal TLD can convert to standard class under the following consensus-enforced conditions:
 
 1. **Minimum two years** of personal ownership (measured in block heights from `personal_since`)
 2. **A fixed conversion burn of 10,000 GRP** (10× the base renewal fee), in addition to any graduated transfer burn due (backed by real outputs to the burn address, not declared amounts)
@@ -385,7 +385,7 @@ Circumstances change—a personal namespace can organically grow into a communit
 
 Rules 3 and 4 close the laundering paths: without them, a holder in the 50%-burn window could convert (flat cost) and sell “as standard” (free), making the graduated schedule dead code. With them, converting first and selling second costs what selling directly costs, plus the conversion burn. Additionally, the fixed burn makes renewal-rate arbitrage (converting to swap the 3× personal rate for the 1× standard rate while idle) unprofitable by construction.
 
-The reverse conversion (standard → personal) is not permitted—an established operator must not be able to dodge build requirements by reclassifying.
+The reverse conversion (standard → personal) is not permitted. An established operator must not be able to dodge build requirements by reclassifying.
 
 **On-Chain Data**
 

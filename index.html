@@ -687,6 +687,8 @@
         <li>Message: You better use them!</li>
       </ul>
 
+      <p>Tier assignment is driven by cryptographically attested SLD counts — see §6.5.</p>
+
       <h3>6.4 Personal TLDs</h3>
 
       <p>Standard TLDs require SLD registrations to prevent squatting, but this conflicts with a legitimate use case: personal namespaces. Someone wanting `.lanhikari` for their own identity shouldn’t need (nor want) to sell domains to strangers.</p>
@@ -699,7 +701,7 @@
 
       <pre class="dedent"><code class="language-markdown">
 | Class    | Renewal Fee  | SLD Requirement           | Transfer Rules      |
-|----------|--------------|---------------------------|---------------------|
+| -------- | ------------ | ------------------------- | ------------------- |
 | Standard | Base rate    | 100+ Year 1, 1000+ Year 2 | Freely transferable |
 | Personal | 3× base rate | None                      | Graduated unlock    |
       </code></pre>
@@ -712,7 +714,7 @@
 
       <pre class="dedent"><code class="language-markdown">
 | Ownership Duration | Transfer Allowed? | Burn Penalty             |
-|--------------------|-------------------|--------------------------|
+| ------------------ | ----------------- | ------------------------ |
 | Year 0–1           | No                | Blocked                  |
 | Year 1–2           | Yes               | 75% of sale price burned |
 | Year 2–3           | Yes               | 50% of sale price burned |
@@ -725,16 +727,21 @@
 
       <p><strong>Personal → Standard Conversion</strong></p>
 
-      <p>Circumstances change. A personal TLD can convert to standard class at any time, with the following conditions:</p>
+      <p>Circumstances change. A personal namespace can organically grow into a community one. A personal TLD can convert to standard class under the following consensus-enforced conditions:</p>
 
       <ol>
-        <li>SLD requirement activates immediately (clock starts, usage thresholds apply)</li>
-        <li>Transfer lock resets to year 0 of the standard transfer schedule</li>
+        <li><strong>Minimum two years</strong> of personal ownership (measured in block heights from <code>personal_since</code>)</li>
+        <li><strong>A fixed conversion burn of 10,000 GRP</strong> (10× the base renewal fee), in addition to any graduated transfer burn due (backed by real outputs to the burn address, not declared amounts)</li>
+        <li><strong>The transfer carrying the conversion pays the personal-class graduated burn.</strong> Class changes take effect after the covenant applies, never during</li>
+        <li><strong>The transfer lock follows ownership duration, not class.</strong> A converted TLD transferred within three years of <code>personal_since</code> pays the graduated burn brackets; at year 3+ transfers are free, as they would have been without converting</li>
+        <li>SLD usage requirements activate from the conversion height—the owner gets the same Year 1/Year 2 runway as a fresh registrant</li>
         <li>Renewal fee drops to base rate on the next renewal cycle</li>
         <li>Conversion is irreversible</li>
       </ol>
 
-      <p>This prevents gaming where someone parks as personal then flips to standard right before a sale. The reverse conversion (standard → personal) is not permitted.</p>
+      <p>Rules 3 and 4 close the laundering paths: without them, a holder in the 50%-burn window could convert (flat cost) and sell “as standard” (free), making the graduated schedule dead code. With them, converting first and selling second costs what selling directly costs, plus the conversion burn. Additionally, the fixed burn makes renewal-rate arbitrage (converting to swap the 3× personal rate for the 1× standard rate while idle) unprofitable by construction.</p>
+
+      <p>The reverse conversion (standard → personal) is not permitted. An established operator must not be able to dodge build requirements by reclassifying.</p>
 
       <p><strong>On-Chain Data</strong></p>
 
@@ -755,10 +762,41 @@ TLD {
       <p>This approach succeeds where cap‑based exemptions (e.g., “4‑10 personal TLDs per wallet”) would fail:</p>
 
       <ul>
-        <li><strong>No Sybil vulnerability</strong>: Creating multiple wallets doesn’t help—each TLD costs 3&times; to maintain</li>
+        <li><strong>No Sybil vulnerability</strong>: Creating multiple wallets doesn’t help—each TLD costs 3× to maintain</li>
         <li><strong>Self‑enforcing</strong>: No subjective judgment calls or governance overhead</li>
         <li><strong>Clear social contract</strong>: “Personal TLDs are yours, not investment vehicles”—the restrictions become a feature</li>
       </ul>
+
+      <h3>6.5 SLD‑Count Attestation</h3>
+
+      <p>Anti‑squat tiers depend on SLD counts, but SLD registration is deliberately off‑chain — TLD owners run any registry software they choose. Self‑reported counts would price fraud at zero; forcing SLDs on‑chain would destroy registry flexibility. Dap closes this gap with <strong>anonymous counting credentials</strong> and a <strong>public transparency log</strong>, keeping all heavy cryptography off‑consensus.</p>
+
+      <p><strong>How it works</strong>:</p>
+
+      <ol>
+        <li>Registrants hold an anonymous credential carrying a hidden registration counter, bound to a small locked on‑chain anchor (one credential per anchor — identities cost capital). The issuer publishes per‑epoch issuance transparency: live‑credential totals against a committed anchor set, so credential inflation is publicly detectable.</li>
+        <li>Each counted SLD registration produces a zero‑knowledge proof and a deterministic nullifier, appended to a public append‑only log. The same SLD can never be counted twice; one registrant’s contribution per TLD is capped; nobody learns who registered what.</li>
+        <li>An attester quorum independently replays the log and signs a compact <strong>Tier Attestation</strong> (TLD, tier, epoch, log checkpoint). Tier thresholds are age‑aware, keyed to the TLD’s on‑chain registration height. Consensus verifies plain ECDSA signatures inside <code>RENEW</code>/<code>UPDATE</code> — no zero‑knowledge verification ever touches the chain.</li>
+        <li><code>PENALIZE</code> reads the attested tier from name state. Missing or stale attestations default to the unused tier: every failure mode over‑charges squatters, never under‑charges them.</li>
+      </ol>
+
+      <p><strong>Trust split</strong> (Certificate Transparency pattern): the credential issuer at <code>count.dap.sh</code> holds the pen; the log at <code>log.dap.sh</code> is everyone watching the pen; attesters sign what the log proves. Every attestation is publicly recomputable — a false one is non‑repudiable evidence of fraud.</p>
+
+      <p><strong>Tier thresholds require distinct registrants, not only SLD totals</strong>:</p>
+
+      <pre class="dedent"><code class="language-markdown">
+| Tier    | Counted SLDs | Distinct registrants | Renewal        |
+| ------- | ------------ | -------------------- | -------------- |
+| Active  | 100+         | 50+                  | 1,000 GRP/yr   |
+| Low‑use | 1+           | 10+                  | 10,000 GRP/yr  |
+| Unused  | —            | —                    | 100,000 GRP/yr |
+      </code></pre>
+
+      <p>Denominating relief in identities closes the cliff where one fake SLD would have saved 90,000 GRP/year. We state the economics plainly: fakery is not impossible, it is bounded, priced per identity, and permanently recorded in a replayable public log. That is what self‑reporting and trusted oracles can never offer.</p>
+
+      <p><strong>Registration is never gated.</strong> Counting is opt‑in per registration: registries — including free ones — serve anyone, with or without credentials. Credentials determine what counts toward the tier.</p>
+
+      <p><strong>Rollout</strong> follows the standard sunset pattern: Foundation‑operated issuer and single attester at launch (with full public auditability from the start), a 3‑of‑5 federation by Year 1–3, and a threshold‑issued credential scheme with an open, bonded, slashable attester set by Year 3.</p>
     </section>
 
     <section id="governance">
@@ -794,7 +832,7 @@ TLD {
 
       <pre class="dedent"><code class="language-markdown">
 | Component           | Initial Control | Transition      | Final State                    |
-|---------------------|-----------------|-----------------|--------------------------------|
+| ------------------- | --------------- | --------------- | ------------------------------ |
 | Development Fund    | Foundation      | -20% yearly     | Community DAO by Year 5        |
 | Technical Decisions | Core Team       | Gradual opening | Full community by Year 3       |
 | Marketing           | Dedicated Team  | Ongoing         | Professional team (DAO funded) |
@@ -870,7 +908,7 @@ TLD {
 
       <p><strong>No Reserved Namespaces</strong>: Every TLD is available at genesis. <code>.com</code>, <code>.google</code>, <code>.amazon</code>—all of it. If Verisign wants <code>.com</code> on Dap, they can bid in the auction like everyone else. We don’t reserve their seat at our table.</p>
 
-      <p><strong>No Special Treatment</strong>: Legacy operators have no automatic claims, no DNSSEC proof shortcuts, no priority access. Dap is a level playing field. Your ICANN credentials mean nothing here—only your willingness to build and your GRP to bid.</p>
+      <p><strong>No Special Treatment</strong>: Legacy operators have no automatic claims, no DNSSEC proof shortcuts, no priority access. Dap is a level playing field. Your ICANN credentials mean nothing here; what matters is your willingness to build and your GRP to bid.</p>
 
       <p><strong>No Apologies</strong>: We’re not “complementing” ICANN or “coexisting peacefully.” We’re demonstrating what a root namespace looks like when it’s run for users instead of bureaucrats. If that’s threatening, good. Competition should be.</p>
 
@@ -896,14 +934,14 @@ TLD {
 
       <pre class="dedent"><code class="language-markdown">
 | Approach                                     | Timeline         | Reach                           |
-|----------------------------------------------|------------------|---------------------------------|
+| -------------------------------------------- | ---------------- | ------------------------------- |
 | Browser extensions (Chrome, Firefox, Safari) | Launch           | Early adopters, developers      |
 | Public DoH/DoT resolver (`dns.dap.sh`)       | Launch           | Anyone who changes DNS settings |
 | Mobile configuration profiles                | Launch           | iOS/Android users               |
 | Aries browser (Chromium)                     | Year 1           | Full native experience          |
 | Aries browser (WebKit, Servo)                | Year 1-2         | Engine diversity                |
 | ISP partnerships                             | Year 1-2         | Mainstream users                |
-| Native browser integration                   | Ongoing          | Mass adoption (the real goal)   |
+| Native browser integration                   | Ongoing          | Mass adoption (the goal)        |
       </code></pre>
 
       <h3>9.4 What Happens to “Conflicts”?</h3>
@@ -915,12 +953,12 @@ TLD {
       <ol>
         <li>Bid on <code>.google</code> in Dap’s auction (they probably should)</li>
         <li>Ignore Dap entirely (their choice)</li>
-        <li>Sue someone (good luck—we’re decentralized)</li>
+        <li>Sue someone (good luck, we’re decentralized)</li>
       </ol>
 
       <p>What Google cannot do: demand we reserve their name, expect special treatment, or dictate our namespace policy.</p>
 
-      <p>The Dap owner of <code>.google</code> has exactly the same rights as every other TLD owner. They must meet usage requirements or face reclaim. If they squat, they pay escalating fees. If they build, they thrive.</p>
+      <p>The Dap owner of <code>.google</code> has the same rights as every other TLD owner. They must meet usage requirements or face reclaim. If they squat, they pay escalating fees. If they build, they thrive.</p>
 
       <p><strong>Trademarks are an ICANN concern.</strong> In Dap’s namespace, you own what you win. Build something or lose it.</p>
     </section>
@@ -1056,7 +1094,7 @@ TLD {
 
       <pre class="dedent"><code class="language-markdown">
 | Parameter              | Value                                 |
-|------------------------|---------------------------------------|
+| ---------------------- | ------------------------------------- |
 | Block time             | 2 minutes (120 seconds)               |
 | Block size             | 4 MB maximum                          |
 | Consensus              | VDF + VRF + Blake3 PoW                |
@@ -1080,7 +1118,7 @@ TLD {
 
       <pre class="dedent"><code class="language-markdown">
 | Parameter              | Value                                                          |
-|------------------------|----------------------------------------------------------------|
+| ---------------------- | -------------------------------------------------------------- |
 | Scheme                 | Wesolowski (2019)                                              |
 | Modulus                | RSA‑2048 challenge number (617 digits, no known factorization) |
 | Security parameter     | 128 bits                                                       |
@@ -1098,7 +1136,7 @@ TLD {
 
       <pre class="dedent"><code class="language-markdown">
 | Parameter        | Value                                            |
-|------------------|--------------------------------------------------|
+| ---------------- | ------------------------------------------------ |
 | Scheme           | ECVRF‑SECP256K1‑SHA256‑TAI (RFC 9381)            |
 | Curve            | secp256k1                                        |
 | Suite byte       | 0x01                                             |
@@ -1118,7 +1156,7 @@ TLD {
 
       <pre class="dedent"><code class="language-markdown">
 | Parameter     | Value                                        |
-|---------------|----------------------------------------------|
+| ------------- | -------------------------------------------- |
 | Hash function | Blake3                                       |
 | Input         | Serialized header (786 bytes) ‖ 8‑byte nonce |
 | Target        | 32‑byte big‑endian threshold                 |
@@ -1154,7 +1192,7 @@ TLD {
       <ul>
         <li>VDF prevents fast‑forwarding: no parallelism produces a valid proof faster than the required delay</li>
         <li>VRF prevents centralization: eligibility is per‑key and non‑transferable</li>
-        <li>Blake3 PoW prevents costless block production: real computational work is required</li>
+        <li>Blake3 PoW prevents costless block production: computational work is required</li>
       </ul>
 
       <h4>A.3 Block Header</h4>
@@ -1163,7 +1201,7 @@ TLD {
 
       <pre class="dedent"><code class="language-markdown">
 | Field          | Size      | Encoding          | Description                        |
-|----------------|-----------|-------------------|------------------------------------|
+| -------------- | --------- | ----------------- | ---------------------------------- |
 | Version        | 4 bytes   | uint32 LE         | Protocol version                   |
 | PrevBlock      | 32 bytes  | raw               | Hash of previous block             |
 | MerkleRoot     | 32 bytes  | raw               | Blake3 merkle root of transactions |
@@ -1186,11 +1224,11 @@ TLD {
 
       <p><strong>Merkle tree</strong>: Blake3‑based binary tree over transaction hashes (not double‑SHA256).</p>
 
-      <p><strong>NamesRoot</strong>: A Blake3 Merkle tree over all actively owned TLDs. Only names in ownership states (<code>REGISTER</code>, <code>UPDATE</code>, <code>RENEW</code>, <code>TRANSFER</code>) are included; names still in auction (<code>OPEN</code>, <code>BID</code>, <code>REVEAL</code>) are excluded. Each leaf is the Blake3 hash of a canonical string encoding the name’s hash, covenant state, registration height, owner, expiration block, TLD class, and personal‑since height. Leaves are sorted deterministically by name hash before tree construction, ensuring all nodes compute an identical root. Validators recompute the NamesRoot after processing a block’s covenants and reject any block whose header commitment does not match.</p>
+      <p><strong>NamesRoot</strong>: A Blake3 Merkle tree over all actively owned TLDs. Names in ownership states (<code>REGISTER</code>, <code>UPDATE</code>, <code>RENEW</code>, <code>TRANSFER</code>) are included; names still in auction (<code>OPEN</code>, <code>BID</code>, <code>REVEAL</code>) are excluded. Each leaf (format v2) is the Blake3 hash of a canonical string encoding the name’s hash, covenant state, registration height, owner, expiration block, TLD class, personal‑since height, record version, conversion height, attested tier, and attestation height Leaves are sorted deterministically by name hash before tree construction, ensuring all nodes compute an identical root. Validators recompute the NamesRoot after processing a block’s covenants and reject any block whose header commitment does not match.</p>
 
       <h4>A.4 Covenant Types</h4>
 
-      <p>Dap uses 9 covenant types (byte values 0–8). Unlike some UTXO naming systems, Dap does not implement <code>CLAIM</code>, <code>REDEEM</code>, or <code>REVOKE</code> covenants; their functions are handled by <code>REGISTER</code> and <code>PENALIZE</code> instead.</p>
+      <p>Dap uses 10 covenant types (byte values 0–9). Dap does not implement <code>CLAIM</code> or <code>REVOKE</code> covenants; their functions are handled by <code>REGISTER</code> and <code>PENALIZE</code> instead.</p>
 
       <pre class="dedent"><code class="language-markdown">
 | Value | Type     | Description                                 |
@@ -1231,22 +1269,22 @@ PENALIZE → OPEN (triggers re‑auction)
       <p><strong>Auction timing (mainnet)</strong>:</p>
 
       <pre class="dedent"><code class="language-markdown">
-| Phase                 | Duration  | Block count | Description                    |
-|-----------------------|-----------|-------------|--------------------------------|
-| OPEN → BID end        | ~5 days   | 3,600       | Sealed bids accepted           |
-| BID end → REVEAL end  | ~1 day    | 720         | Bidders reveal sealed bids     |
-| REVEAL end → REGISTER | Immediate | —           | Winner may claim at any time   |
-| Expiration            | ~6 months | 131,400     | TLD expires if not renewed     |
-| Renewal window        | ~1 month  | 21,900      | Grace period before expiration |
+| Phase                 | Duration  | Block count | Description                                      |
+| --------------------- | --------- | ----------- | ------------------------------------------------ |
+| OPEN → BID end        | ~5 days   | 3,600       | Sealed bids accepted                             |
+| BID end → REVEAL end  | ~1 day    | 720         | Bidders reveal sealed bids                       |
+| REVEAL end → REGISTER | ~5 days   | 3,600       | Winner claim window                              |
+| Expiration            | ~1 year   | 262,800     | Max expiry extension; TLD expires if not renewed |
+| Renewal window        | ~1 month  | 21,900      | Grace period before expiration                   |
       </code></pre>
 
-      <p>Full lifecycle: <code>OPEN</code> at block <code>N</code> → bids accepted until <code>N+3,600</code> → reveals accepted until <code>N+4,320</code> → winner registers after <code>N+4,320</code> → registration expires at registration block + 131,400.</p>
+      <p>Full lifecycle: <code>OPEN</code> at block <code>N</code> → bids accepted until <code>N+3,600</code> → reveals accepted until <code>N+4,320</code> → winner registers after <code>N+4,320</code> and before the registration deadline at <code>N+7,920</code> (after which the name may be re‑opened and the lapsed winner’s reveal becomes redeemable) → registration expires at registration block + up to 262,800 (the consensus cap on expiry extension; renewal is permitted within the 21,900‑block window before expiry).</p>
 
       <p><strong>Minimum bids by TLD length</strong>:</p>
 
       <pre class="dedent"><code class="language-markdown">
 | TLD length    | Minimum bid | In grippies        |
-|---------------|-------------|--------------------|
+| ------------- | ----------- | ------------------ |
 | 1 character   | 100,000 GRP | 10,000,000,000,000 |
 | 2 characters  | 10,000 GRP  | 1,000,000,000,000  |
 | 3 characters  | 1,000 GRP   | 100,000,000,000    |
@@ -1261,7 +1299,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <pre class="dedent"><code class="language-markdown">
 | Algorithm   | Usage                                                                                                           |
-|-------------|-----------------------------------------------------------------------------------------------------------------|
+| ----------- | --------------------------------------------------------------------------------------------------------------- |
 | Blake3      | Block hashing, PoW, merkle trees, sighash, name hashing, blind hash computation                                 |
 | SHA‑256     | VDF internals (hash‑to‑group, hash‑to‑prime, Fiat‑Shamir), VRF (hash‑to‑curve, challenge, proof‑to‑hash, nonce) |
 | RIPEMD‑160  | hash160 = SHA‑256 then RIPEMD‑160, used for address derivation                                                  |
@@ -1273,7 +1311,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <pre class="dedent"><code class="language-plain hljs">
 | Value | Type              |
-|-------|-------------------|
+| ----- | ----------------- |
 | 0x01  | SIGHASH_ALL       |
 | 0x02  | SIGHASH_NONE      |
 | 0x03  | SIGHASH_SINGLE    |
@@ -1285,13 +1323,13 @@ PENALIZE → OPEN (triggers re‑auction)
       <p><strong>Key derivation and encryption</strong>:</p>
 
       <pre class="dedent"><code class="language-markdown">
-| Primitive  | Usage                                    |
-|------------|------------------------------------------|
-| AES‑GCM    | Symmetric encryption                     |
-| PBKDF2     | Password‑based key derivation            |
-| HKDF       | Key expansion                            |
-| HMAC       | Message authentication (SHA‑256/SHA‑512) |
-| scrypt     | Wallet file encryption                   |
+| Primitive | Usage                                    |
+| --------- | ---------------------------------------- |
+| AES‑GCM   | Symmetric encryption                     |
+| PBKDF2    | Password‑based key derivation            |
+| HKDF      | Key expansion                            |
+| HMAC      | Message authentication (SHA‑256/SHA‑512) |
+| scrypt    | Wallet file encryption                   |
       </code></pre>
 
       <p><strong>Address encoding</strong>: Bech32 (BIP‑173 compatible) with human‑readable prefix, witness version, and data payload.</p>
@@ -1300,7 +1338,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <pre class="dedent"><code class="language-markdown">
 | Network | P2P Port | RPC Port | Wallet Port | Magic Bytes |
-|---------|----------|----------|-------------|-------------|
+| ------- | -------- | -------- | ----------- | ----------- |
 | Mainnet | 12038    | 12039    | 14038       | 0xd4f00d42  |
 | Testnet | 13038    | 13039    | 15038       | 0xd4f00d43  |
 | Regtest | 14038    | 14039    | 16038       | 0xd4f00d44  |
@@ -1312,7 +1350,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <pre class="dedent"><code class="language-markdown">
 | Field          | Size    | Description                    |
-|----------------|---------|--------------------------------|
+| -------------- | ------- | ------------------------------ |
 | Magic          | 4 bytes | Network identifier (LE uint32) |
 | Command        | 1 byte  | Packet type enum               |
 | Payload length | 4 bytes | Payload size (LE uint32)       |
@@ -1326,7 +1364,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <p><strong>Transport encryption</strong>: Optional TLS 1.3 at the TCP layer. Production mainnet configuration requires it (cipher suites: <code>TLS_AES_256_GCM_SHA384</code>, <code>TLS_CHACHA20_POLY1305_SHA256</code>, <code>TLS_AES_128_GCM_SHA256</code>). Testnet and regtest allow plaintext.</p>
 
-      <p><strong>Peer scoring</strong>: Each misbehavior adds points toward a ban threshold of 100. Reaching the threshold results in a 24‑hour ban. Examples: invalid block announcement (+50), excessive inventory items (+25), transaction rate‑limit violation (+20), unknown message type (+10), rejected transaction (+5). A separate 0‑1 quality score (starting at 0.5) tracks long‑term peer reliability; peers dropping below 0.1 are banned.</p>
+      <p><strong>Peer scoring</strong>: Each misbehavior adds points toward a ban threshold of 100. Reaching the threshold results in a 24‑hour ban. Examples: consensus‑invalid block or invalid‑PoW announcement (+50), invalid transaction (+20), rejected non‑duplicate transaction (+10), rate‑limit violations (TX +20, INV +15, expensive requests +10), unknown message type (+10), message‑handler error (+20). A separate 0‑1 quality score (starting at 0.5) tracks long‑term peer reliability; peers dropping below 0.1 are banned.</p>
 
       <p><strong>DNS Integration</strong>:</p>
 
@@ -1344,7 +1382,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <pre class="dedent"><code class="language-markdown">
 | Component           | Centralization        | Duration | Justification       |
-|---------------------|-----------------------|----------|---------------------|
+| ------------------- | --------------------- | -------- | ------------------- |
 | Development Fund    | Foundation controlled | 5 years  | Bootstrap ecosystem |
 | Technical Decisions | Core team             | 2 years  | Ship quickly        |
 | Marketing           | Dedicated team        | Ongoing  | Drive adoption      |
