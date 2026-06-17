@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <meta name="description" content="High-level overview of the Dap blockchain, a decentralized naming system and certificate authority. It aims to be the secure DNS upgrade for everyone."/>
+    <meta name="description" content="High-level overview of the Dap blockchain, a decentralized naming system and certificate authority. It aims to be the secure DNS upgrade for everyone."/>
     <meta name="viewport" content="initial-scale=1, viewport-fit=cover, width=device-width"/>
 
     <title>Whitepaper &bull; Dap &bull; The DNS upgrade for everyone</title>
@@ -10,7 +10,7 @@
     <link rel="icon" href="favicon.svg"/>
     <link rel="stylesheet" href="./reset.css"/>
     <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/default.min.css"/>
-    <link rel="stylesheet" href="https://uchu.style/color.css"/>
+    <link rel="stylesheet" href="https://uchu.style/uchu.css"/>
 
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
 
@@ -287,25 +287,25 @@
 
   <body>
     <aside>
-      <p>WARNING: DRAFT 9 — IN‑PROGRESS WHITEPAPER</p>
-      <p>UPDATED: 2026.03.12</p>
+      <p>WARNING: DRAFT 10 — IN‑PROGRESS WHITEPAPER</p>
+      <p>UPDATED: 2026.06.17</p>
     </aside>
 
     <section id="abstract">
-      <h1>Abstract <a href="README.md">Markdown version</a></h1>
+      <h1>Abstract <a href="README.md">Markdown version</a></h1>
 
-      <p>The internet’s naming system remains under the centralized control of the Internet Corporation for Assigned Names and Numbers (<a href="https://icann.org?ref=dap.sh" target="_blank">ICANN</a>), requiring million‑dollar fees and bureaucratic approval processes for new top‑level domains. While other blockchain naming systems have attempted to solve this through pure decentralization, they have failed to produce notable products or use cases after years of operation, trapped by ideological purity that refuses any coordination even when necessary for basic ecosystem development.</p>
+      <p>The internet’s naming system remains under the centralized control of the Internet Corporation for Assigned Names and Numbers (<a href="https://icann.org?ref=dap.sh" target="_blank">ICANN</a>), requiring million‑dollar fees and bureaucratic approval processes for new top‑level domains. While other blockchain naming systems have attempted to solve this through pure decentralization, they have failed to produce notable products or use cases after years of operation, trapped by ideological purity that refuses any coordination even when necessary for basic ecosystem development.</p>
 
-      <p>Dap represents a pragmatic alternative: decentralized enough to ensure censorship resistance and permissionless innovation, yet coordinated enough to ship products and serve users. We explicitly reject the purity spirals that have paralyzed other projects, choosing instead to measure success by applications built, users served, and utility created.</p>
+      <p>Dap represents a pragmatic alternative: decentralized enough to ensure censorship resistance and permissionless innovation, yet coordinated enough to ship products and serve users. We explicitly reject the purity spirals that have paralyzed other projects, choosing instead to measure success by applications built, users served, and utility created.</p>
 
-      <p>This paper introduces Dap’s technical architecture, economic model, and our philosophy of pragmatic decentralization that prioritizes shipping over philosophizing. Perfect decentralization without adoption is worthless. Dap chooses adoption.</p>
+      <p>This paper introduces Dap’s technical architecture, economic model, and our philosophy of pragmatic decentralization that prioritizes shipping over philosophizing. Perfect decentralization without adoption is worthless. Dap chooses adoption.</p>
     </section>
 
     <section id="introduction">
       <h2>2. Introduction</h2>
       <h3>2.1 The Current State of Internet Naming</h3>
 
-      <p>Since 1998, ICANN has maintained monopolistic control over the internet’s root naming system. Creating a new top‑level domain (TLD) requires:</p>
+      <p>Since 1998, ICANN has maintained monopolistic control over the internet’s root naming system. Creating a new top‑level domain (TLD) requires:</p>
 
       <ul>
         <li>A $185,000 non‑refundable application fee</li>
@@ -315,177 +315,177 @@
         <li>Ongoing contractual obligations and fees</li>
       </ul>
 
-      <p>This system has resulted in ~1,500 TLDs existing after decades of internet growth, with control concentrated among a handful of large registry operators. Innovation is stifled, prices remain high, and entire communities and businesses are excluded from owning their namespace.</p>
+      <p>This system has resulted in ~1,500 TLDs existing after decades of internet growth, with control concentrated among a handful of large registry operators. Innovation is stifled, prices remain high, and entire communities and businesses are excluded from owning their namespace.</p>
 
       <h3>2.2 Why Other Blockchains Failed to Deliver</h3>
 
-      <p>Previous blockchain naming systems launched with the promise of decentralizing domain names. The technology works; the blockchains run, names can be registered, <a href="https://en.wikipedia.org/w/index.php?title=Domain_Name_System&useskin=vector&ref=dap.sh" target="_blank">DNS</a> records can be set. Yet after years:</p>
+      <p>Previous blockchain naming systems launched with the promise of decentralizing domain names. The technology works; the blockchains run, names can be registered, <a href="https://en.wikipedia.org/w/index.php?title=Domain_Name_System&useskin=vector&ref=dap.sh" target="_blank">DNS</a> records can be set. Yet after years:</p>
 
       <ul>
-        <li><strong>Zero notable products</strong> have been built</li>
-        <li><strong>Zero major websites</strong> use their names</li>
-        <li><strong>Zero services</strong> provide utility to end users</li>
-        <li><strong>The communities have nearly abandoned these projects</strong></li>
+        <li><strong>Zero notable products</strong> have been built</li>
+        <li><strong>Zero major websites</strong> use their names</li>
+        <li><strong>Zero services</strong> provide utility to end users</li>
+        <li><strong>The communities have nearly abandoned these projects</strong></li>
       </ul>
 
-      <p>Why? The answer isn’t technical; it’s cultural.</p>
+      <p>Why? The answer isn’t technical; it’s cultural.</p>
 
-      <p>These communities inherited Bitcoin maximalism’s toxic trait: an absolute refusal to coordinate or centralize anything, even temporarily, even when necessary for basic ecosystem development. This manifested as:</p>
+      <p>These communities inherited Bitcoin maximalism’s toxic trait: an absolute refusal to coordinate or centralize anything, even temporarily, even when necessary for basic ecosystem development. This manifested as:</p>
 
-      <p><strong>The Purity Trap</strong>: Any suggestion of coordination, funding, or leadership was attacked as “centralization” and rejected, regardless of practical benefits.</p>
+      <p><strong>The Purity Trap</strong>: Any suggestion of coordination, funding, or leadership was attacked as “centralization” and rejected, regardless of practical benefits.</p>
 
-      <p><strong>Technical Superiority Complex</strong>: Communities became satisfied with having built “the best decentralized naming system” technically, while ignoring that nobody uses it.</p>
+      <p><strong>Technical Superiority Complex</strong>: Communities became satisfied with having built “the best decentralized naming system” technically, while ignoring that nobody uses it.</p>
 
-      <p><strong>Governance Paralysis</strong>: Decision‑making processes optimized for “decentralization theater” over progress. Months spent debating, zero time shipping.</p>
+      <p><strong>Governance Paralysis</strong>: Decision‑making processes optimized for “decentralization theater” over progress. Months spent debating, zero time shipping.</p>
 
-      <p><strong>User Hostility</strong>: Expecting end users to understand blockchain mechanics, run full nodes, and compile software from source. Then wondering why adoption never came.</p>
+      <p><strong>User Hostility</strong>: Expecting end users to understand blockchain mechanics, run full nodes, and compile software from source. Then wondering why adoption never came.</p>
 
-      <p><strong>The Field of Dreams Fallacy</strong>: “Build the infrastructure and they will come.” No marketing. No business development. No user onboarding. No ecosystem cultivation.</p>
+      <p><strong>The Field of Dreams Fallacy</strong>: “Build the infrastructure and they will come.” No marketing. No business development. No user onboarding. No ecosystem cultivation.</p>
 
-      <p>Dap explicitly rejects this failed approach. We prioritize pragmatism, product development, and user adoption over ideological purity.</p>
+      <p>Dap explicitly rejects this failed approach. We prioritize pragmatism, product development, and user adoption over ideological purity.</p>
 
       <h3>2.3 The Dap Philosophy</h3>
 
-      <p><strong>Products Over Protocol</strong>: We judge ourselves by applications built and users served, not by technical papers published or governance proposals debated.</p>
+      <p><strong>Products Over Protocol</strong>: We judge ourselves by applications built and users served, not by technical papers published or governance proposals debated.</p>
 
-      <p><strong>Pragmatic Decentralization</strong>: We use centralization as a tool when it accelerates development, with clear sunset provisions to prevent permanent capture.</p>
+      <p><strong>Pragmatic Decentralization</strong>: We use centralization as a tool when it accelerates development, with clear sunset provisions to prevent permanent capture.</p>
 
-      <p><strong>User‑First Design</strong>: If your grandmother can’t use it, we haven’t built it right. Complexity belongs in the backend, not the user interface.</p>
+      <p><strong>User‑First Design</strong>: If your grandmother can’t use it, we haven’t built it right. Complexity belongs in the backend, not the user interface.</p>
 
-      <p><strong>Aggressive Business Development</strong>: We don’t wait for organic adoption. We actively pursue partnerships, integrations, and users.</p>
+      <p><strong>Aggressive Business Development</strong>: We don’t wait for organic adoption. We actively pursue partnerships, integrations, and users.</p>
 
-      <p><strong>Rapid Iteration</strong>: We ship weekly, not yearly. Better to launch and fix than to debate and delay.</p>
+      <p><strong>Rapid Iteration</strong>: We ship weekly, not yearly. Better to launch and fix than to debate and delay.</p>
     </section>
 
     <section id="opportunity">
       <h2>3. Market Opportunity</h2>
       <h3>3.1 The Domain Name Industry</h3>
 
-      <p>The domain industry generates over $10 billion annually, with:</p>
+      <p>The domain industry generates over $10 billion annually, with:</p>
 
       <ul>
-        <li>350+ million registered domains</li>
-        <li>Average prices of $10‑50 per year</li>
-        <li>Premium domains selling for millions</li>
-        <li>Entire secondary market of brokers and investors</li>
+        <li>350+ million registered domains</li>
+        <li>Average prices of $10‑50 per year</li>
+        <li>Premium domains selling for millions</li>
+        <li>Entire secondary market of brokers and investors</li>
       </ul>
 
       <p>Yet innovation has stagnated:</p>
 
       <ul>
-        <li>Same TLD application process since 2012</li>
-        <li>Same registrar/registry split model</li>
-        <li>Same centralized control structure</li>
-        <li>Same barriers to entry</li>
+        <li>Same TLD application process since 2012</li>
+        <li>Same registrar/registry split model</li>
+        <li>Same centralized control structure</li>
+        <li>Same barriers to entry</li>
       </ul>
 
       <h3>3.2 Dap’s Opportunity</h3>
 
-      <p>Dap targets three distinct markets:</p>
+      <p>Dap targets three distinct markets:</p>
 
-      <p><strong>TLD Ownership</strong>: Instead of paying ICANN $185,000+ and waiting years, own a TLD on Dap immediately through transparent auctions.</p>
+      <p><strong>TLD Ownership</strong>: Instead of paying ICANN $185,000+ and waiting years, own a TLD on Dap immediately through transparent auctions.</p>
 
-      <p><strong>Brand Protection</strong>: Companies can own their .brand TLD forever, controlling their entire namespace without annual ICANN fees.</p>
+      <p><strong>Brand Protection</strong>: Companies can own their .brand TLD forever, controlling their entire namespace without annual ICANN fees.</p>
 
-      <p><strong>Developer Innovation</strong>: Build applications impossible under ICANN’s restrictions—token‑gated domains, NFT integration, automated markets.</p>
+      <p><strong>Developer Innovation</strong>: Build applications impossible under ICANN’s restrictions—token‑gated domains, NFT integration, automated markets.</p>
 
       <h3>3.3 Go‑to‑Market Strategy</h3>
 
-      <p>Unlike projects that wait for users to discover them, Dap actively creates adoption:</p>
+      <p>Unlike projects that wait for users to discover them, Dap actively creates adoption:</p>
 
       <p><strong>Phase 1: Resolution & Builders (Months 0‑6)</strong></p>
 
       <ul>
-        <li>Browser extensions for Chrome, Firefox, Safari at launch</li>
-        <li>Public DoH/DoT resolver (`dns.dap.sh`) at launch</li>
-        <li>Developer grants program ($10M allocated)</li>
-        <li>Weekly hackathons and demo days</li>
-        <li>Technical documentation and SDKs</li>
-        <li>Direct outreach to Web3 projects</li>
+        <li>Browser extensions for Chrome, Firefox, Safari at launch</li>
+        <li>Public DoH/DoT resolver (`dns.dap.sh`) at launch</li>
+        <li>Developer grants program ($10M allocated)</li>
+        <li>Weekly hackathons and demo days</li>
+        <li>Technical documentation and SDKs</li>
+        <li>Direct outreach to Web3 projects</li>
       </ul>
 
       <p><strong>Phase 2: Browser & Businesses (Months 6‑12)</strong></p>
 
       <ul>
-        <li>Aries browser ships (Chromium engine)</li>
-        <li>Native browser integration negotiations</li>
-        <li>Enterprise sales team targeting Fortune 500</li>
-        <li>White‑glove onboarding for major brands</li>
-        <li>Partnership with existing registrars</li>
-        <li>Integration with popular platforms</li>
+        <li>Aries browser ships (Chromium engine)</li>
+        <li>Native browser integration negotiations</li>
+        <li>Enterprise sales team targeting Fortune 500</li>
+        <li>White‑glove onboarding for major brands</li>
+        <li>Partnership with existing registrars</li>
+        <li>Integration with popular platforms</li>
       </ul>
 
       <p><strong>Phase 3: Mass Adoption (Months 12+)</strong></p>
 
       <ul>
-        <li>Mobile apps for iOS/Android with built-in resolution</li>
-        <li>Marketing campaigns targeting specific communities</li>
-        <li>Influencer partnerships and sponsorships</li>
-        <li>Consumer education initiatives</li>
+        <li>Mobile apps for iOS/Android with built-in resolution</li>
+        <li>Marketing campaigns targeting specific communities</li>
+        <li>Influencer partnerships and sponsorships</li>
+        <li>Consumer education initiatives</li>
       </ul>
 
-      <p><strong>Pragmatic Governance</strong>: For the first two years, a small team makes decisions quickly. No months‑long governance debates about minor technical details. No committee paralysis. Decisions in days, not months.</p>
+      <p><strong>Pragmatic Governance</strong>: For the first two years, a small team makes decisions quickly. No months‑long governance debates about minor technical details. No committee paralysis. Decisions in days, not months.</p>
 
-      <p>We choose building over debating, shipping over philosophizing, and users over ideology.</p>
+      <p>We choose building over debating, shipping over philosophizing, and users over ideology.</p>
     </section>
 
     <section id="architecture">
       <h2>4. Technical Architecture</h2>
       <h3>4.1 Blockchain Layer</h3>
 
-      <p>Dap builds on proven foundations while fixing the limitations of previous systems. We use a UTXO‑based blockchain with enhanced covenants designed for domain name operations.</p>
+      <p>Dap builds on proven foundations while fixing the limitations of previous systems. We use a UTXO‑based blockchain with enhanced covenants designed for domain name operations.</p>
 
       <p><strong>Core Design Principles</strong>:</p>
 
       <ul>
-        <li>UTXO model for simplicity and scalability</li>
-        <li>Proof‑of‑work for objective security</li>
-        <li>Covenant system for native naming operations</li>
-        <li>Open participation without permission</li>
+        <li>UTXO model for simplicity and scalability</li>
+        <li>Proof‑of‑work for objective security</li>
+        <li>Covenant system for native naming operations</li>
+        <li>Open participation without permission</li>
       </ul>
 
       <p><strong>Key Improvements</strong>:</p>
 
       <ul>
-        <li>Simplified covenant types focused on realistic use cases</li>
-        <li>Enhanced scripting for complex TLD management</li>
-        <li>Optimized block structure for DNS data</li>
-        <li>Production‑ready immediately, not “eventually”</li>
+        <li>Simplified covenant types focused on realistic use cases</li>
+        <li>Enhanced scripting for complex TLD management</li>
+        <li>Optimized block structure for DNS data</li>
+        <li>Production‑ready immediately, not “eventually”</li>
       </ul>
 
-      <p>We resist the temptation to over‑engineer. Every technical decision is evaluated against realistic use cases, not theoretical possibilities.</p>
+      <p>We resist the temptation to over‑engineer. Every technical decision is evaluated against realistic use cases, not theoretical possibilities.</p>
 
       <h3>4.2 Consensus: Practical Innovation</h3>
 
-      <p>Dap implements a revolutionary consensus mechanism combining three proven technologies:</p>
+      <p>Dap implements a revolutionary consensus mechanism combining three proven technologies:</p>
 
-      <p><strong>Verifiable Delay Functions (VDF)</strong>: Replace pure computational work with time‑based proofs, reducing energy consumption by 95% while maintaining security. Miners prove elapsed time, not wasted computation.</p>
+      <p><strong>Verifiable Delay Functions (VDF)</strong>: Replace pure computational work with time‑based proofs, reducing energy consumption by 95% while maintaining security. Miners prove elapsed time, not wasted computation.</p>
 
-      <p><strong>Verifiable Random Functions (VRF)</strong>: Provide provably fair randomness for block producer selection and auction resolution. No more mining pool centralization or auction manipulation.</p>
+      <p><strong>Verifiable Random Functions (VRF)</strong>: Provide provably fair randomness for block producer selection and auction resolution. No more mining pool centralization or auction manipulation.</p>
 
-      <p><strong>Blake3 Proof‑of‑Work</strong>: The fastest cryptographic hash function available, providing efficient verification.</p>
+      <p><strong>Blake3 Proof‑of‑Work</strong>: The fastest cryptographic hash function available, providing efficient verification.</p>
 
       <p>This “Trinity” design delivers:</p>
 
       <ul>
-        <li>95% energy reduction versus traditional PoW</li>
-        <li>Predictable 2‑minute block times</li>
-        <li>Fair mining distribution without pools</li>
-        <li>Sustainable security model</li>
+        <li>95% energy reduction versus traditional PoW</li>
+        <li>Predictable 2‑minute block times</li>
+        <li>Fair mining distribution without pools</li>
+        <li>Sustainable security model</li>
       </ul>
 
-      <p>But we emphasize: <strong>Technical superiority means nothing without adoption</strong>. We judge our consensus by whether it enables products, not whether it wins academic awards.</p>
+      <p>But we emphasize: <strong>Technical superiority means nothing without adoption</strong>. We judge our consensus by whether it enables products, not whether it wins academic awards.</p>
 
       <h3>4.3 Resolution: The Existential Priority</h3>
 
-      <p>A naming system nobody can resolve is a naming system nobody uses. Resolution isn’t a feature—it’s the entire product. Without it, we’re selling vanity database entries.</p>
+      <p>A naming system nobody can resolve is a naming system nobody uses. Resolution isn’t a feature—it’s the entire product. Without it, we’re selling vanity database entries.</p>
 
-      <p><strong>Day One Requirements</strong> (Ship with mainnet or don’t launch):</p>
+      <p><strong>Day One Requirements</strong> (Ship with mainnet or don’t launch):</p>
 
       <ul>
-        <li>Browser extensions for Chrome, Firefox, Safari</li>
+        <li>Browser extensions for Chrome, Firefox, Safari</li>
         <li>Public DoH resolver at <code>dns.dap.sh</code></li>
-        <li>Public DoT resolver for system-level integration</li>
+        <li>Public DoT resolver for system-level integration</li>
         <li>Mobile DNS configuration profiles</li>
         <li>CLI tools for developers</li>
       </ul>
@@ -493,8 +493,8 @@
       <p><strong>Year One Goals</strong>:</p>
 
       <ul>
-        <li>Aries browser with native resolution (Chromium first, WebKit and Servo to follow)</li>
-        <li>Integration discussions with major browsers</li>
+        <li>Aries browser with native resolution (Chromium first, WebKit and Servo to follow)</li>
+        <li>Integration discussions with major browsers</li>
         <li>ISP partnership pilots</li>
         <li>Enterprise resolver deployments</li>
       </ul>
@@ -527,40 +527,40 @@
         <li>Geographic distribution</li>
       </ul>
 
-      <p><strong>Users shouldn’t need to understand blockchain to use blockchain domains.</strong> They type a URL, it resolves. Everything else is implementation detail.</p>
+      <p><strong>Users shouldn’t need to understand blockchain to use blockchain domains.</strong> They type a URL, it resolves. Everything else is implementation detail.</p>
     </section>
 
     <section id="strategy">
       <h2>5. Ecosystem Development Strategy</h2>
       <h3>5.1 The Anti‑Maximalist Approach</h3>
 
-      <p>Where other projects relied on spontaneous emergence, Dap actively cultivates its ecosystem:</p>
+      <p>Where other projects relied on spontaneous emergence, Dap actively cultivates its ecosystem:</p>
 
-      <p><strong>Centralized Kickstart</strong>: The Dap Foundation initially coordinates development, funds builders, and drives adoption. This is temporary centralization for permanent decentralization. We’ll sunset the foundation’s special powers after achieving product‑market fit.</p>
+      <p><strong>Centralized Kickstart</strong>: The Dap Foundation initially coordinates development, funds builders, and drives adoption. This is temporary centralization for permanent decentralization. We’ll sunset the foundation’s special powers after achieving product‑market fit.</p>
 
-      <p><strong>Developer Grants</strong>: $10 million allocated for builders who ship products. Not researchers who write papers, not theorists who debate governance—builders who ship code users can use.</p>
+      <p><strong>Developer Grants</strong>: $10 million allocated for builders who ship products. Not researchers who write papers, not theorists who debate governance—builders who ship code users can use.</p>
 
-      <p><strong>Marketing Budget</strong>: Yes, we market. We advertise. We sponsor conferences. We create content. We do business development. Because products without users are expensive hobbies.</p>
+      <p><strong>Marketing Budget</strong>: Yes, we market. We advertise. We sponsor conferences. We create content. We do business development. Because products without users are expensive hobbies.</p>
 
-      <p><strong>Business Development</strong>: We actively pursue partnerships with registries, browsers, and applications. We don’t wait for organic adoption—we create it.</p>
+      <p><strong>Business Development</strong>: We actively pursue partnerships with registries, browsers, and applications. We don’t wait for organic adoption—we create it.</p>
 
       <h3>5.2 Product‑First Roadmap</h3>
 
-      <p>Our success metrics are products and users, not protocol features:</p>
+      <p>Our success metrics are products and users, not protocol features:</p>
 
       <p><strong>Testnet Goals</strong>:</p>
 
       <ul>
-        <li>10+ working applications before mainnet</li>
-        <li>1,000+ active developers building</li>
-        <li>10,000+ daily active testnet users</li>
+        <li>10+ working applications before mainnet</li>
+        <li>1,000+ active developers building</li>
+        <li>10,000+ daily active testnet users</li>
         <li>Businesses testing use cases</li>
       </ul>
 
       <p><strong>Product Showcases</strong>:</p>
 
       <ul>
-        <li>Weekly demo days for new applications</li>
+        <li>Weekly demo days for new applications</li>
         <li>Monthly builder spotlights</li>
         <li>Quarterly ecosystem reports</li>
         <li>Annual developer conference</li>
@@ -569,33 +569,33 @@
       <p><strong>User Focus</strong>:</p>
 
       <ul>
-        <li>Onboarding guides for non‑technical users</li>
+        <li>Onboarding guides for non‑technical users</li>
         <li>One‑click setup tools</li>
         <li>Customer support</li>
         <li>User feedback integration</li>
       </ul>
 
-      <p>Every protocol decision is downstream from “What helps users?”</p>
+      <p>Every protocol decision is downstream from “What helps users?”</p>
 
       <h3>5.3 Builder Incentives</h3>
 
-      <p>We explicitly favor builders over speculators:</p>
+      <p>We explicitly favor builders over speculators:</p>
 
-      <p><strong>Testnet Rewards</strong>: Developers who build during testnet receive GRP token grants at mainnet launch. The more you build, the more you earn.</p>
+      <p><strong>Testnet Rewards</strong>: Developers who build during testnet receive GRP token grants at mainnet launch. The more you build, the more you earn.</p>
 
-      <p><strong>Mainnet Allocation</strong>: 10% of token supply reserved for proven builders, distributed based on ecosystem contribution, not token holdings.</p>
+      <p><strong>Mainnet Allocation</strong>: 10% of token supply reserved for proven builders, distributed based on ecosystem contribution, not token holdings.</p>
 
-      <p><strong>Revenue Sharing</strong>: TLD auction revenues partially distributed to application developers driving adoption. Build the ecosystem, share the rewards.</p>
+      <p><strong>Revenue Sharing</strong>: TLD auction revenues partially distributed to application developers driving adoption. Build the ecosystem, share the rewards.</p>
 
       <p><strong>Anti‑Speculation Measures</strong>:</p>
 
       <ul>
-        <li>TLD owners must demonstrate usage within 1 year or face reclaim</li>
-        <li>Multiple TLD ownership requires proven utilization of existing TLDs</li>
-        <li>Squatting penalties fund builder grants</li>
+        <li>TLD owners must demonstrate usage within 1 year or face reclaim</li>
+        <li>Multiple TLD ownership requires proven utilization of existing TLDs</li>
+        <li>Squatting penalties fund builder grants</li>
       </ul>
 
-      <p>We want builders, not holders. Users, not speculators. Products, not promises.</p>
+      <p>We want builders, not holders. Users, not speculators. Products, not promises.</p>
     </section>
 
     <section id="auction">
@@ -604,7 +604,7 @@
 
       <p>Dap’s auction system prioritizes utilization:</p>
 
-      <p><strong>Vickrey Auction Format</strong>: Blind second‑price auctions ensure fair price discovery. Bidders submit sealed bids; the winner pays the second‑highest bid amount. This mechanism encourages honest bidding; your dominant strategy is to bid your true valuation, while preventing bid sniping and last‑minute manipulation.</p>
+      <p><strong>Vickrey Auction Format</strong>: Blind second‑price auctions ensure fair price discovery. Bidders submit sealed bids; the winner pays the second‑highest bid amount. This mechanism encourages honest bidding; your dominant strategy is to bid your true valuation, while preventing bid sniping and last‑minute manipulation.</p>
 
       <p><strong>Progressive Minimums</strong>:</p>
 
@@ -615,87 +615,87 @@
         <li>Generic TLDs: 100 GRP minimum</li>
       </ul>
 
-      <p><strong>Build Requirements</strong>: TLD winners must:</p>
+      <p><strong>Build Requirements</strong>: TLD winners must:</p>
 
       <ul>
-        <li>Set nameservers within 30 days</li>
-        <li>Demonstrate registration system within 90 days</li>
-        <li>Show active usage within 1 year</li>
-        <li>Or face automatic reclaim and re‑auction</li>
+        <li>Set nameservers within 30 days</li>
+        <li>Demonstrate registration system within 90 days</li>
+        <li>Show active usage within 1 year</li>
+        <li>Or face automatic reclaim and re‑auction</li>
       </ul>
 
       <p><strong>Builder Advantages</strong>:</p>
 
       <ul>
-        <li>Proven developers get 20% auction discount</li>
-        <li>Ecosystem contributors get priority access</li>
-        <li>Multiple TLD bids require utilization proof</li>
+        <li>Proven developers get 20% auction discount</li>
+        <li>Ecosystem contributors get priority access</li>
+        <li>Multiple TLD bids require utilization proof</li>
       </ul>
 
       <h3>6.2 Registry Flexibility</h3>
 
-      <p>TLD owners have complete control over their namespace:</p>
+      <p>TLD owners have complete control over their namespace:</p>
 
       <p><strong>Business Models</strong>:</p>
 
       <ul>
-        <li>Traditional: Charge registration fees</li>
-        <li>Free: Build ecosystem through free domains</li>
-        <li>Token‑Gated: Require NFT/token ownership</li>
-        <li>Verified: KYC/identity requirements</li>
-        <li>Custom: Any model you can imagine</li>
+        <li>Traditional: Charge registration fees</li>
+        <li>Free: Build ecosystem through free domains</li>
+        <li>Token‑Gated: Require NFT/token ownership</li>
+        <li>Verified: KYC/identity requirements</li>
+        <li>Custom: Any model you can imagine</li>
       </ul>
 
       <p><strong>Technical Freedom</strong>:</p>
 
       <ul>
-        <li>Choose any registry software</li>
-        <li>Set any DNS records</li>
-        <li>Implement any policies</li>
+        <li>Choose any registry software</li>
+        <li>Set any DNS records</li>
+        <li>Implement any policies</li>
         <li>Run any infrastructure</li>
       </ul>
 
-      <p><strong>The Crucial Insight</strong>: “Own the whole <code>.com</code>, not just a domain.” Instead of registering <code>mycompany.com</code>, own <code>.mycompany</code> and control unlimited domains beneath it.</p>
+      <p><strong>The Crucial Insight</strong>: “Own the whole <code>.com</code>, not just a domain.” Instead of registering <code>mycompany.com</code>, own <code>.mycompany</code> and control unlimited domains beneath it.</p>
 
       <h3>6.3 Anti‑Squatting Mechanisms</h3>
 
-      <p>TLD squatting is prevented through economic incentives:</p>
+      <p>TLD squatting is prevented through economic incentives:</p>
 
       <p><strong>Usage Requirements</strong>:</p>
 
       <ul>
-        <li>Year 1: Must have 100+ domains registered</li>
-        <li>Year 2: Must have 1000+ domains registered</li>
-        <li>Or pay 10x renewal fee for unused TLDs</li>
+        <li>Year 1: Must have 100+ domains registered</li>
+        <li>Year 2: Must have 1000+ domains registered</li>
+        <li>Or pay 10x renewal fee for unused TLDs</li>
       </ul>
 
       <p><strong>Renewal Scaling</strong>:</p>
 
       <ul>
         <li>Active TLD: 1000 GRP/year</li>
-        <li>Low‑use TLD (<100 domains): 10,000 GRP/year</li>
-        <li>Unused TLD (0 domains): 100,000 GRP/year</li>
-        <li>Automatic reclaim after 2 years unused</li>
+        <li>Low‑use TLD (<100 domains): 10,000 GRP/year</li>
+        <li>Unused TLD (0 domains): 100,000 GRP/year</li>
+        <li>Automatic reclaim after 2 years unused</li>
       </ul>
 
       <p><strong>Bulk Penalties</strong>:</p>
 
       <ul>
         <li>1 TLD: Normal price</li>
-        <li>10 TLDs: 2x price each</li>
-        <li>100 TLDs: 5x price each</li>
-        <li>Message: You better use them!</li>
+        <li>10 TLDs: 2x price each</li>
+        <li>100 TLDs: 5x price each</li>
+        <li>Message: You better use them!</li>
       </ul>
 
       <h3>6.4 Personal TLDs</h3>
 
-      <p>Standard TLDs require SLD registrations to prevent squatting, but this conflicts with a legitimate use case: personal namespaces. Someone wanting `.lanhikari` for their own identity shouldn’t need (nor want) to sell domains to strangers.</p>
+      <p>Standard TLDs require SLD registrations to prevent squatting, but this conflicts with a legitimate use case: personal namespaces. Someone wanting `.lanhikari` for their own identity shouldn’t need (nor want) to sell domains to strangers.</p>
 
-      <p>Personal TLDs solve this through economic design rather than honor systems.</p>
+      <p>Personal TLDs solve this through economic design rather than honor systems.</p>
 
       <p><strong>Registration Choice</strong></p>
 
-      <p>At TLD claim, the wallet selects one of two classes:</p>
+      <p>At TLD claim, the wallet selects one of two classes:</p>
 
       <pre class="dedent"><code class="language-markdown">
 | Class    | Renewal Fee  | SLD Requirement           | Transfer Rules      |
@@ -704,11 +704,11 @@
 | Personal | 3× base rate | None                      | Graduated unlock    |
       </code></pre>
 
-      <p>The choice is recorded on‑chain at registration. The 3&times; fee multiplier makes portfolio‑building uneconomical while remaining affordable for genuine personal use.</p>
+      <p>The choice is recorded on‑chain at registration. The 3&times; fee multiplier makes portfolio‑building uneconomical while remaining affordable for genuine personal use.</p>
 
       <p><strong>Graduated Transfer Unlock</strong></p>
 
-      <p>Personal TLDs have transfer restrictions that decay over time:</p>
+      <p>Personal TLDs have transfer restrictions that decay over time:</p>
 
       <pre class="dedent"><code class="language-markdown">
 | Ownership Duration | Transfer Allowed? | Burn Penalty             |
@@ -719,22 +719,22 @@
 | Year 3+            | Yes               | None                     |
       </code></pre>
 
-      <p><strong>Deflationary burns</strong>: All penalty burns permanently remove GRP from circulation. No treasury allocation—pure deflation. This ensures no constituency benefits from rule‑breaking, making the penalty a pure disincentive.</p>
+      <p><strong>Deflationary burns</strong>: All penalty burns permanently remove GRP from circulation. No treasury allocation—pure deflation. This ensures no constituency benefits from rule‑breaking, making the penalty a pure disincentive.</p>
 
-      <p>By year 3, the owner has paid enough premium renewals (3&times; annually) that speculation math doesn’t work regardless of transfer freedom.</p>
+      <p>By year 3, the owner has paid enough premium renewals (3&times; annually) that speculation math doesn’t work regardless of transfer freedom.</p>
 
       <p><strong>Personal → Standard Conversion</strong></p>
 
-      <p>Circumstances change. A personal TLD can convert to standard class at any time, with the following conditions:</p>
+      <p>Circumstances change. A personal TLD can convert to standard class at any time, with the following conditions:</p>
 
       <ol>
-        <li>SLD requirement activates immediately (clock starts, usage thresholds apply)</li>
-        <li>Transfer lock resets to year 0 of the standard transfer schedule</li>
-        <li>Renewal fee drops to base rate on the next renewal cycle</li>
-        <li>Conversion is irreversible</li>
+        <li>SLD requirement activates immediately (clock starts, usage thresholds apply)</li>
+        <li>Transfer lock resets to year 0 of the standard transfer schedule</li>
+        <li>Renewal fee drops to base rate on the next renewal cycle</li>
+        <li>Conversion is irreversible</li>
       </ol>
 
-      <p>This prevents gaming where someone parks as personal then flips to standard right before a sale. The reverse conversion (standard → personal) is not permitted.</p>
+      <p>This prevents gaming where someone parks as personal then flips to standard right before a sale. The reverse conversion (standard → personal) is not permitted.</p>
 
       <p><strong>On-Chain Data</strong></p>
 
@@ -748,16 +748,16 @@ TLD {
 }
       </code></pre>
 
-      <p>The <code>personal_since</code> field tracks when the TLD entered personal class, enabling accurate graduated unlock calculations regardless of original registration date.</p>
+      <p>The <code>personal_since</code> field tracks when the TLD entered personal class, enabling accurate graduated unlock calculations regardless of original registration date.</p>
 
       <p><strong>Design Rationale</strong></p>
 
-      <p>This approach succeeds where cap‑based exemptions (e.g., “4‑10 personal TLDs per wallet”) would fail:</p>
+      <p>This approach succeeds where cap‑based exemptions (e.g., “4‑10 personal TLDs per wallet”) would fail:</p>
 
       <ul>
-        <li><strong>No Sybil vulnerability</strong>: Creating multiple wallets doesn’t help—each TLD costs 3&times; to maintain</li>
-        <li><strong>Self‑enforcing</strong>: No subjective judgment calls or governance overhead</li>
-        <li><strong>Clear social contract</strong>: “Personal TLDs are yours, not investment vehicles”—the restrictions become a feature</li>
+        <li><strong>No Sybil vulnerability</strong>: Creating multiple wallets doesn’t help—each TLD costs 3&times; to maintain</li>
+        <li><strong>Self‑enforcing</strong>: No subjective judgment calls or governance overhead</li>
+        <li><strong>Clear social contract</strong>: “Personal TLDs are yours, not investment vehicles”—the restrictions become a feature</li>
       </ul>
     </section>
 
@@ -765,28 +765,28 @@ TLD {
       <h2>7. Governance: Efficient, Not Perfect</h2>
       <h3>7.1 Benevolent Dictatorship Phase</h3>
 
-      <p>For the first two years, the Dap Foundation makes decisions quickly:</p>
+      <p>For the first two years, the Dap Foundation makes decisions quickly:</p>
 
       <ul>
-        <li>Protocol upgrades decided in days, not months</li>
-        <li>Resource allocation without committees</li>
-        <li>Partnership negotiations without votes</li>
-        <li>Emergency responses without delays</li>
+        <li>Protocol upgrades decided in days, not months</li>
+        <li>Resource allocation without committees</li>
+        <li>Partnership negotiations without votes</li>
+        <li>Emergency responses without delays</li>
       </ul>
 
-      <p>This is explicitly temporary. We need to achieve product‑market fit before decentralizing governance. Other projects proved that premature decentralization equals permanent paralysis.</p>
+      <p>This is explicitly temporary. We need to achieve product‑market fit before decentralizing governance. Other projects proved that premature decentralization equals permanent paralysis.</p>
 
       <h3>7.2 Practical Decentralization</h3>
 
-      <p>After two years, we transition to community governance with pragmatic constraints:</p>
+      <p>After two years, we transition to community governance with pragmatic constraints:</p>
 
-      <p><strong>Bounded Decisions</strong>: Governance for major changes (protocol upgrades, economic parameters). Daily operations remain centralized for efficiency.</p>
+      <p><strong>Bounded Decisions</strong>: Governance for major changes (protocol upgrades, economic parameters). Daily operations remain centralized for efficiency.</p>
 
-      <p><strong>Time Limits</strong>: All proposals have 30‑day maximum discussion periods. Decisions happen, even if imperfect.</p>
+      <p><strong>Time Limits</strong>: All proposals have 30‑day maximum discussion periods. Decisions happen, even if imperfect.</p>
 
-      <p><strong>Implementation Focus</strong>: Proposals must include implementation plans, not merely ideas. “Who will build this?” comes before “Should we build this?”</p>
+      <p><strong>Implementation Focus</strong>: Proposals must include implementation plans, not merely ideas. “Who will build this?” comes before “Should we build this?”</p>
 
-      <p><strong>Default to Action</strong>: Without clear consensus against, we proceed. Inaction is not an option.</p>
+      <p><strong>Default to Action</strong>: Without clear consensus against, we proceed. Inaction is not an option.</p>
 
       <h3>7.3 Sunset Provisions</h3>
 
@@ -808,30 +808,30 @@ TLD {
 
       <p>Total Supply: <strong>420,000,000 GRP</strong></p>
 
-      <p>The base denomination is the <strong>grippie</strong> (plural: grippies). 1 GRP = 100,000,000 grippies, analogous to Bitcoin’s satoshi. All consensus math operates on grippies as integer values; floating‑point arithmetic is never used.</p>
+      <p>The base denomination is the <strong>grippie</strong> (plural: grippies). 1 GRP = 100,000,000 grippies, analogous to Bitcoin’s satoshi. All consensus math operates on grippies as integer values; floating‑point arithmetic is never used.</p>
 
       <p><strong>Distribution</strong>:</p>
 
       <ul>
-        <li>Mining Rewards: 70% (294M GRP)</li>
-        <li>Developer Fund: 10% (42M GRP)</li>
-        <li>Ecosystem Grants: 7.5% (31.5M GRP)</li>
-        <li>Treasury: 7.5% (31.5M GRP)</li>
-        <li>Advisors: 2.5% (10.5M GRP)</li>
-        <li>Marketing: 2.5% (10.5M GRP)</li>
+        <li>Mining Rewards: 70% (294M GRP)</li>
+        <li>Developer Fund: 10% (42M GRP)</li>
+        <li>Ecosystem Grants: 7.5% (31.5M GRP)</li>
+        <li>Treasury: 7.5% (31.5M GRP)</li>
+        <li>Advisors: 2.5% (10.5M GRP)</li>
+        <li>Marketing: 2.5% (10.5M GRP)</li>
       </ul>
 
-      <p><strong>Why 70% to Miners</strong>: Unlike other projects that waste tokens on unclaimed airdrops or insider allocations, Dap puts the overwhelming majority in the hands of those securing the network. Miners are the backbone of Dap.</p>
+      <p><strong>Why 70% to Miners</strong>: Unlike other projects that waste tokens on unclaimed airdrops or insider allocations, Dap puts the overwhelming majority in the hands of those securing the network. Miners are the backbone of Dap.</p>
 
       <h3>8.2 Deflationary Mechanics</h3>
 
-      <p>All TLD auction proceeds and penalty burns are permanently removed from circulation:</p>
+      <p>All TLD auction proceeds and penalty burns are permanently removed from circulation:</p>
 
       <p><strong>Burn Sources</strong>:</p>
 
       <ul>
         <li>TLD auction winning bids</li>
-        <li>Personal TLD early transfer penalties (graduated 75%/50%)</li>
+        <li>Personal TLD early transfer penalties (graduated 75%/50%)</li>
         <li>Future protocol‑level penalties</li>
       </ul>
 
@@ -841,22 +841,22 @@ TLD {
         <li>Year 1: 1‑2M GRP burned</li>
         <li>Year 5: 10‑15M GRP burned cumulative</li>
         <li>Year 10: 25‑35M GRP burned cumulative</li>
-        <li>Long‑term: 5‑10% of supply permanently removed</li>
+        <li>Long‑term: 5‑10% of supply permanently removed</li>
       </ul>
 
-      <p><strong>Economic Security</strong>: As supply decreases through burning while demand increases through adoption, GRP becomes increasingly valuable, ensuring long‑term mining incentives even as block rewards decrease.</p>
+      <p><strong>Economic Security</strong>: As supply decreases through burning while demand increases through adoption, GRP becomes increasingly valuable, ensuring long‑term mining incentives even as block rewards decrease.</p>
 
-      <p><strong>Why True Burns</strong>: Penalty burns go to a provably unspendable address rather than a treasury. This eliminates perverse incentives—no constituency profits from rule‑breaking. “Break the rules, value disappears” is simpler to explain and harder to politicize than redistribution schemes.</p>
+      <p><strong>Why True Burns</strong>: Penalty burns go to a provably unspendable address rather than a treasury. This eliminates perverse incentives—no constituency profits from rule‑breaking. “Break the rules, value disappears” is simpler to explain and harder to politicize than redistribution schemes.</p>
 
       <h3>8.3 No Premine Games</h3>
 
-      <p>Unlike other projects with complex token swaps or conversion mechanisms:</p>
+      <p>Unlike other projects with complex token swaps or conversion mechanisms:</p>
 
       <ul>
-        <li><strong>Pure GRP from the start</strong>: No confusion, no conversion rates</li>
-        <li><strong>No insider advantages</strong>: Everyone starts equal</li>
-        <li><strong>No wasted allocations</strong>: Every GRP has a purpose</li>
-        <li><strong>Clear value proposition</strong>: “420M GRP. 70% to miners. 30% to builders.”</li>
+        <li><strong>Pure GRP from the start</strong>: No confusion, no conversion rates</li>
+        <li><strong>No insider advantages</strong>: Everyone starts equal</li>
+        <li><strong>No wasted allocations</strong>: Every GRP has a purpose</li>
+        <li><strong>Clear value proposition</strong>: “420M GRP. 70% to miners. 30% to builders.”</li>
       </ul>
     </section>
 
@@ -864,33 +864,33 @@ TLD {
       <h2>9. A True Alternative Root</h2>
       <h3>9.1 The Competition ICANN Never Had</h3>
 
-      <p>ICANN has operated without meaningful competition for decades. No pressure to innovate. No incentive to lower prices. No reason to improve. Dap changes that.</p>
+      <p>ICANN has operated without meaningful competition for decades. No pressure to innovate. No incentive to lower prices. No reason to improve. Dap changes that.</p>
 
-      <p><strong>We are not an extension of the existing internet. We are an alternative.</strong></p>
+      <p><strong>We are not an extension of the existing internet. We are an alternative.</strong></p>
 
-      <p><strong>No Reserved Namespaces</strong>: Every TLD is available at genesis. <code>.com</code>, <code>.google</code>, <code>.amazon</code>—all of it. If Verisign wants <code>.com</code> on Dap, they can bid in the auction like everyone else. We don’t reserve their seat at our table.</p>
+      <p><strong>No Reserved Namespaces</strong>: Every TLD is available at genesis. <code>.com</code>, <code>.google</code>, <code>.amazon</code>—all of it. If Verisign wants <code>.com</code> on Dap, they can bid in the auction like everyone else. We don’t reserve their seat at our table.</p>
 
-      <p><strong>No Special Treatment</strong>: Legacy operators have no automatic claims, no DNSSEC proof shortcuts, no priority access. Dap is a level playing field. Your ICANN credentials mean nothing here—only your willingness to build and your GRP to bid.</p>
+      <p><strong>No Special Treatment</strong>: Legacy operators have no automatic claims, no DNSSEC proof shortcuts, no priority access. Dap is a level playing field. Your ICANN credentials mean nothing here—only your willingness to build and your GRP to bid.</p>
 
-      <p><strong>No Apologies</strong>: We’re not “complementing” ICANN or “coexisting peacefully.” We’re demonstrating what a root namespace looks like when it’s run for users instead of bureaucrats. If that’s threatening, good. Competition should be.</p>
+      <p><strong>No Apologies</strong>: We’re not “complementing” ICANN or “coexisting peacefully.” We’re demonstrating what a root namespace looks like when it’s run for users instead of bureaucrats. If that’s threatening, good. Competition should be.</p>
 
       <h3>9.2 The Bitcoin Precedent</h3>
 
-      <p>Bitcoin didn’t ask permission from central banks. It didn’t say “we’ll avoid fiat currency denominations to prevent confusion.” It built an alternative monetary system and let people choose.</p>
+      <p>Bitcoin didn’t ask permission from central banks. It didn’t say “we’ll avoid fiat currency denominations to prevent confusion.” It built an alternative monetary system and let people choose.</p>
 
-      <p>Dap follows the same logic. We’re not asking ICANN’s permission. We’re not worried about “name conflicts” with their system. We’re building something better and letting the market decide.</p>
+      <p>Dap follows the same logic. We’re not asking ICANN’s permission. We’re not worried about “name conflicts” with their system. We’re building something better and letting the market decide.</p>
 
-      <p><strong>Your resolver, your namespace, your choice.</strong></p>
+      <p><strong>Your resolver, your namespace, your choice.</strong></p>
 
       <h3>9.3 Resolution Is the Battlefield</h3>
 
-      <p>The only question that matters: can users reach Dap domains?</p>
+      <p>The only question that matters: can users reach Dap domains?</p>
 
-      <p>If yes, we win. ICANN becomes one option among many—the legacy option, the expensive option, the slow option.</p>
+      <p>If yes, we win. ICANN becomes one option among many—the legacy option, the expensive option, the slow option.</p>
 
-      <p>If no, we’re irrelevant. The best protocol in the world means nothing if nobody can use it.</p>
+      <p>If no, we’re irrelevant. The best protocol in the world means nothing if nobody can use it.</p>
 
-      <p>This is why resolution ships Day One. Not Year 3. Not “eventually.” Day One.</p>
+      <p>This is why resolution ships Day One. Not Year 3. Not “eventually.” Day One.</p>
 
       <p><strong>Resolution Strategy</strong>:</p>
 
@@ -908,21 +908,21 @@ TLD {
 
       <h3>9.4 What Happens to “Conflicts”?</h3>
 
-      <p>Someone owns <code>.google</code> on Dap. Google Inc. is unhappy. What happens?</p>
+      <p>Someone owns <code>.google</code> on Dap. Google Inc. is unhappy. What happens?</p>
 
       <p><strong>Nothing special.</strong> Google can:</p>
 
       <ol>
-        <li>Bid on <code>.google</code> in Dap’s auction (they probably should)</li>
+        <li>Bid on <code>.google</code> in Dap’s auction (they probably should)</li>
         <li>Ignore Dap entirely (their choice)</li>
         <li>Sue someone (good luck—we’re decentralized)</li>
       </ol>
 
-      <p>What Google cannot do: demand we reserve their name, expect special treatment, or dictate our namespace policy.</p>
+      <p>What Google cannot do: demand we reserve their name, expect special treatment, or dictate our namespace policy.</p>
 
-      <p>The Dap owner of <code>.google</code> has exactly the same rights as every other TLD owner. They must meet usage requirements or face reclaim. If they squat, they pay escalating fees. If they build, they thrive.</p>
+      <p>The Dap owner of <code>.google</code> has exactly the same rights as every other TLD owner. They must meet usage requirements or face reclaim. If they squat, they pay escalating fees. If they build, they thrive.</p>
 
-      <p><strong>Trademarks are an ICANN concern.</strong> In Dap’s namespace, you own what you win. Build something or lose it.</p>
+      <p><strong>Trademarks are an ICANN concern.</strong> In Dap’s namespace, you own what you win. Build something or lose it.</p>
     </section>
 
     <section id="focus">
@@ -930,23 +930,23 @@ TLD {
       <h3>10.1 What We’re NOT</h3>
 
       <ul>
-        <li><strong>Not asking ICANN’s permission</strong>: We compete, we don’t petition</li>
-        <li><strong>Not purely decentralized</strong>: We coordinate when necessary</li>
-        <li><strong>Not waiting for perfection</strong>: We ship when good enough</li>
-        <li><strong>Not hostile to business</strong>: We embrace commercial success</li>
-        <li><strong>Not ideologically driven</strong>: We’re results driven</li>
-        <li><strong>Not building for cypherpunks</strong>: We’re building for everyone</li>
+        <li><strong>Not asking ICANN’s permission</strong>: We compete, we don’t petition</li>
+        <li><strong>Not purely decentralized</strong>: We coordinate when necessary</li>
+        <li><strong>Not waiting for perfection</strong>: We ship when good enough</li>
+        <li><strong>Not hostile to business</strong>: We embrace commercial success</li>
+        <li><strong>Not ideologically driven</strong>: We’re results driven</li>
+        <li><strong>Not building for cypherpunks</strong>: We’re building for everyone</li>
       </ul>
 
       <h3>10.2 What We ARE</h3>
 
       <ul>
-        <li><strong>Building products</strong>: Code running in production</li>
-        <li><strong>Shipping working code</strong>: Weekly releases, not yearly promises</li>
-        <li><strong>Growing an ecosystem</strong>: Active developer relations and support</li>
-        <li><strong>Creating utility</strong>: genuine problems for genuine users</li>
-        <li><strong>Embracing pragmatism</strong>: The best solution that ships</li>
-        <li><strong>Measuring success</strong>: By usage, not ideology</li>
+        <li><strong>Building products</strong>: Code running in production</li>
+        <li><strong>Shipping working code</strong>: Weekly releases, not yearly promises</li>
+        <li><strong>Growing an ecosystem</strong>: Active developer relations and support</li>
+        <li><strong>Creating utility</strong>: genuine problems for genuine users</li>
+        <li><strong>Embracing pragmatism</strong>: The best solution that ships</li>
+        <li><strong>Measuring success</strong>: By usage, not ideology</li>
       </ul>
 
       <h3>10.3 Our Metrics</h3>
@@ -954,10 +954,10 @@ TLD {
       <p><strong>What We Track</strong>:</p>
 
       <ul>
-        <li>GitHub commits per week</li>
-        <li>New applications launched</li>
+        <li>GitHub commits per week</li>
+        <li>New applications launched</li>
         <li>Active users (daily/monthly)</li>
-        <li>DNS queries served</li>
+        <li>DNS queries served</li>
         <li>Revenue generated</li>
         <li>Developer satisfaction</li>
       </ul>
@@ -973,77 +973,77 @@ TLD {
         <li>Social media followers</li>
       </ul>
 
-      <p>Build. Ship. Iterate. Everything else is noise.</p>
+      <p>Build. Ship. Iterate. Everything else is noise.</p>
     </section>
 
     <section id="success">
-      <h2>11. Why Dap Will Succeed Where Others Failed</h2>
+      <h2>11. Why Dap Will Succeed Where Others Failed</h2>
       <h3>11.1 Leadership Exists</h3>
 
-      <p>Unlike other projects’ headless approach, Dap has clear leadership:</p>
+      <p>Unlike other projects’ headless approach, Dap has clear leadership:</p>
 
-      <p><strong>Technical Direction</strong>: Core team makes architectural decisions quickly and decisively. No endless bike-shedding over minor details.</p>
+      <p><strong>Technical Direction</strong>: Core team makes architectural decisions quickly and decisively. No endless bike-shedding over minor details.</p>
 
-      <p><strong>Ecosystem Coordination</strong>: Dedicated team manages developer relations, partnerships, and user growth. Not left to “emerge organically.”</p>
+      <p><strong>Ecosystem Coordination</strong>: Dedicated team manages developer relations, partnerships, and user growth. Not left to “emerge organically.”</p>
 
-      <p><strong>Resource Allocation</strong>: Foundation distributes grants based on results, not politics. Ship code, get funded.</p>
+      <p><strong>Resource Allocation</strong>: Foundation distributes grants based on results, not politics. Ship code, get funded.</p>
 
-      <p><strong>Accountability</strong>: Leaders have genuine names, genuine reputations, and genuine skin in the game. No hiding behind anonymous accounts.</p>
+      <p><strong>Accountability</strong>: Leaders have genuine names, genuine reputations, and genuine skin in the game. No hiding behind anonymous accounts.</p>
 
       <h3>11.2 Sustainable Economics</h3>
 
-      <p><strong>For Miners</strong>: 70% of supply ensures profitable mining even at low token prices. No dependency on unsustainable subsidies.</p>
+      <p><strong>For Miners</strong>: 70% of supply ensures profitable mining even at low token prices. No dependency on unsustainable subsidies.</p>
 
-      <p><strong>For Developers</strong>: Direct grants, revenue sharing, and clear monetization paths. Build on Dap, make money.</p>
+      <p><strong>For Developers</strong>: Direct grants, revenue sharing, and clear monetization paths. Build on Dap, make money.</p>
 
-      <p><strong>For Users</strong>: Utility from the start. Use domains for websites, email, identity. Not only speculation.</p>
+      <p><strong>For Users</strong>: Utility from the start. Use domains for websites, email, identity. Not only speculation.</p>
 
-      <p><strong>For TLD Owners</strong>: Run a genuine business selling domains. Not merely holding and hoping.</p>
+      <p><strong>For TLD Owners</strong>: Run a genuine business selling domains. Not merely holding and hoping.</p>
 
       <h3>11.3 Pragmatic Timeline</h3>
 
-      <p><strong>Year 0 (Testnet)</strong>: Build, test, iterate. Browser extensions and resolver ready. Launch when ready, not when scheduled.</p>
+      <p><strong>Year 0 (Testnet)</strong>: Build, test, iterate. Browser extensions and resolver ready. Launch when ready, not when scheduled.</p>
 
-      <p><strong>Year 1</strong>: Browser extensions live, Aries browser shipped, 10+ production applications, 100+ active developers, 10K+ daily users.</p>
+      <p><strong>Year 1</strong>: Browser extensions live, Aries browser shipped, 10+ production applications, 100+ active developers, 10K+ daily users.</p>
 
-      <p><strong>Year 2</strong>: Native browser integration negotiations, enterprise adoption, 100K+ daily users.</p>
+      <p><strong>Year 2</strong>: Native browser integration negotiations, enterprise adoption, 100K+ daily users.</p>
 
-      <p><strong>Year 3</strong>: Mainstream awareness, 1M+ daily users, profitable ecosystem.</p>
+      <p><strong>Year 3</strong>: Mainstream awareness, 1M+ daily users, profitable ecosystem.</p>
 
-      <p><strong>Year 5</strong>: Serving 1B+ DNS queries daily. Undeniable product‑market fit.</p>
+      <p><strong>Year 5</strong>: Serving 1B+ DNS queries daily. Undeniable product‑market fit.</p>
     </section>
 
     <section id="fin">
       <h2>12. Conclusion</h2>
 
-      <p>Dap represents a fundamental shift in how blockchain projects approach development and adoption. We reject the failed maximalist approach that prioritizes ideological purity over user value. We embrace pragmatic trade‑offs that enable us to ship products and serve users.</p>
+      <p>Dap represents a fundamental shift in how blockchain projects approach development and adoption. We reject the failed maximalist approach that prioritizes ideological purity over user value. We embrace pragmatic trade‑offs that enable us to ship products and serve users.</p>
 
-      <p>The domain name system is too important to leave in the hands of:</p>
+      <p>The domain name system is too important to leave in the hands of:</p>
 
       <ul>
         <li>ICANN’s bureaucracy and gatekeeping</li>
-        <li>Blockchain projects that refuse to ship</li>
-        <li>Ideological purists who hate users</li>
+        <li>Blockchain projects that refuse to ship</li>
+        <li>Ideological purists who hate users</li>
         <li>Speculators who build nothing</li>
       </ul>
 
       <p>Dap will succeed because we:</p>
 
       <ul>
-        <li>Ship code weekly, not yearly</li>
-        <li>Pursue users aggressively, not passively</li>
-        <li>Build products people want, not protocols nobody uses</li>
-        <li>Measure success by adoption, not ideology</li>
-        <li>Compete directly instead of asking permission</li>
+        <li>Ship code weekly, not yearly</li>
+        <li>Pursue users aggressively, not passively</li>
+        <li>Build products people want, not protocols nobody uses</li>
+        <li>Measure success by adoption, not ideology</li>
+        <li>Compete directly instead of asking permission</li>
       </ul>
 
-      <p>The internet deserves a naming system that is both decentralized AND useful. Previous projects proved you can build one or the other. Dap will prove you can build both.</p>
+      <p>The internet deserves a naming system that is both decentralized AND useful. Previous projects proved you can build one or the other. Dap will prove you can build both.</p>
 
-      <p>ICANN has had no competition for three decades. That ends now.</p>
+      <p>ICANN has had no competition for three decades. That ends now.</p>
 
-      <p>Join us in building the future of internet naming. Not through endless debates and governance theater, but through shipping code and serving users.</p>
+      <p>Join us in building the future of internet naming. Not through endless debates and governance theater, but through shipping code and serving users.</p>
 
-      <p><strong>Dap: The competition ICANN never had.</strong></p>
+      <p><strong>Dap: The competition ICANN never had.</strong></p>
     </section>
 
     <hr/>
@@ -1074,7 +1074,7 @@ TLD {
 
       <h4>A.2 Consensus: The Trinity</h4>
 
-      <p>Dap’s consensus combines three cryptographic mechanisms that must all pass for a block to be valid.</p>
+      <p>Dap’s consensus combines three cryptographic mechanisms that must all pass for a block to be valid.</p>
 
       <h5>Verifiable Delay Function (VDF)</h5>
 
@@ -1090,9 +1090,9 @@ TLD {
 | Proof size             | 512 bytes (256‑byte output + 256‑byte proof)                   |
       </code></pre>
 
-      <p>The VDF challenge is the previous block’s hash (32 zero bytes for genesis). Proof generation computes <code>g^(2^t) mod N</code> via <code>t</code> sequential squarings—inherently serial, impossible to parallelize. Verification uses the Wesolowski equation: <code>y = π^l · g^r mod N</code>, where <code>l</code> is a 128‑bit challenge prime derived via Fiat‑Shamir and <code>r = 2^t mod l</code>. Verification runs in <code>O(log t)</code> time, making it orders of magnitude faster than generation.</p>
+      <p>The VDF challenge is the previous block’s hash (32 zero bytes for genesis). Proof generation computes <code>g^(2^t) mod N</code> via <code>t</code> sequential squarings—inherently serial, impossible to parallelize. Verification uses the Wesolowski equation: <code>y = π^l · g^r mod N</code>, where <code>l</code> is a 128‑bit challenge prime derived via Fiat‑Shamir and <code>r = 2^t mod l</code>. Verification runs in <code>O(log t)</code> time, making it orders of magnitude faster than generation.</p>
 
-      <p><strong>Purpose</strong>: Enforces temporal ordering between blocks. No amount of computational resources can produce a valid VDF proof faster than the required delay, preventing timestamp manipulation and ensuring minimum spacing between blocks.</p>
+      <p><strong>Purpose</strong>: Enforces temporal ordering between blocks. No amount of computational resources can produce a valid VDF proof faster than the required delay, preventing timestamp manipulation and ensuring minimum spacing between blocks.</p>
 
       <h5>Verifiable Random Function (VRF)</h5>
 
@@ -1108,11 +1108,11 @@ TLD {
 | Nonce derivation | Deterministic (RFC 6979‑style)                   |
       </code></pre>
 
-      <p>The VRF input is the previous block’s hash. The miner computes a proof using their private key; the resulting 32‑byte output is compared against a VRF difficulty target. If <code>output ≤ target</code>, the miner is eligible to produce the next block. Ineligible miners skip immediately—no energy wasted on VDF or PoW computation.</p>
+      <p>The VRF input is the previous block’s hash. The miner computes a proof using their private key; the resulting 32‑byte output is compared against a VRF difficulty target. If <code>output ≤ target</code>, the miner is eligible to produce the next block. Ineligible miners skip immediately—no energy wasted on VDF or PoW computation.</p>
 
-      <p>Proof‑to‑hash follows RFC 9381 §5.2: <code>output = SHA‑256(suite ‖ 0x03 ‖ gamma)</code>, ensuring the random output is uniformly distributed and cannot be biased.</p>
+      <p>Proof‑to‑hash follows RFC 9381 §5.2: <code>output = SHA‑256(suite ‖ 0x03 ‖ gamma)</code>, ensuring the random output is uniformly distributed and cannot be biased.</p>
 
-      <p><strong>Purpose</strong>: Provides provably fair, unpredictable block producer selection. Eligibility is tied to a specific private key and cannot be delegated, preventing mining pool centralization.</p>
+      <p><strong>Purpose</strong>: Provides provably fair, unpredictable block producer selection. Eligibility is tied to a specific private key and cannot be delegated, preventing mining pool centralization.</p>
 
       <h5>Blake3 Proof‑of‑Work</h5>
 
@@ -1125,41 +1125,41 @@ TLD {
 | Verification  | Single hash comparison                       |
       </code></pre>
 
-      <p>The miner searches for a nonce such that <code>Blake3(header ‖ nonce) ≤ blake3Target</code>. Blake3 is the fastest general‑purpose cryptographic hash function available, providing efficient verification with a single hash operation and low ASIC incentive due to lower PoW difficulty requirements enabled by VRF pre-filtering.</p>
+      <p>The miner searches for a nonce such that <code>Blake3(header ‖ nonce) ≤ blake3Target</code>. Blake3 is the fastest general‑purpose cryptographic hash function available, providing efficient verification with a single hash operation and low ASIC incentive due to lower PoW difficulty requirements enabled by VRF pre-filtering.</p>
 
-      <p><strong>Purpose</strong>: Provides Byzantine fault tolerance and Sybil resistance. The PoW difficulty is adjusted independently from VRF difficulty—both retarget every 720 blocks but track separate targets.</p>
+      <p><strong>Purpose</strong>: Provides Byzantine fault tolerance and Sybil resistance. The PoW difficulty is adjusted independently from VRF difficulty—both retarget every 720 blocks but track separate targets.</p>
 
       <h5>How the Trinity Interlocks</h5>
 
-      <p>Block production proceeds in three sequential stages:</p>
+      <p>Block production proceeds in three sequential stages:</p>
 
       <ol>
-        <li><strong>VRF eligibility check</strong> (~15 ms): Compute VRF proof and check <code>output ≤ vrfTarget</code>. If ineligible, stop immediately.</li>
-        <li><strong>VDF proof generation</strong> (~10 seconds): Compute Wesolowski VDF over previous block’s hash. Enforces minimum wall‑clock delay.</li>
-        <li><strong>Blake3 PoW mining</strong> (variable): Search for valid nonce against blake3Target. Duration depends on difficulty and hashrate.</li>
+        <li><strong>VRF eligibility check</strong> (~15 ms): Compute VRF proof and check <code>output ≤ vrfTarget</code>. If ineligible, stop immediately.</li>
+        <li><strong>VDF proof generation</strong> (~10 seconds): Compute Wesolowski VDF over previous block’s hash. Enforces minimum wall‑clock delay.</li>
+        <li><strong>Blake3 PoW mining</strong> (variable): Search for valid nonce against blake3Target. Duration depends on difficulty and hashrate.</li>
       </ol>
 
-      <p>Block validation reverses the cost profile—cheapest rejections first:</p>
+      <p>Block validation reverses the cost profile—cheapest rejections first:</p>
 
       <ol>
-        <li><strong>VDF verification</strong> (~10 ms): Verify Wesolowski equation.</li>
-        <li><strong>VRF verification</strong> (~1 ms): Recompute output from miner’s public key, verify eligibility.</li>
-        <li><strong>Blake3 PoW verification</strong> (~1 μs): Recompute single hash, compare against target.</li>
+        <li><strong>VDF verification</strong> (~10 ms): Verify Wesolowski equation.</li>
+        <li><strong>VRF verification</strong> (~1 ms): Recompute output from miner’s public key, verify eligibility.</li>
+        <li><strong>Blake3 PoW verification</strong> (~1 μs): Recompute single hash, compare against target.</li>
       </ol>
 
-      <p>All three must pass. A block failing any check is rejected.</p>
+      <p>All three must pass. A block failing any check is rejected.</p>
 
       <p><strong>Security guarantees</strong>:</p>
 
       <ul>
-        <li>VDF prevents fast‑forwarding: no parallelism produces a valid proof faster than the required delay</li>
-        <li>VRF prevents centralization: eligibility is per‑key and non‑transferable</li>
-        <li>Blake3 PoW prevents costless block production: real computational work is required</li>
+        <li>VDF prevents fast‑forwarding: no parallelism produces a valid proof faster than the required delay</li>
+        <li>VRF prevents centralization: eligibility is per‑key and non‑transferable</li>
+        <li>Blake3 PoW prevents costless block production: real computational work is required</li>
       </ul>
 
       <h4>A.3 Block Header</h4>
 
-      <p>The block header is ~858 bytes (compared to Bitcoin’s 80 bytes), reflecting the additional proof data required by Trinity consensus.</p>
+      <p>The block header is ~858 bytes (compared to Bitcoin’s 80 bytes), reflecting the additional proof data required by Trinity consensus.</p>
 
       <pre class="dedent"><code class="language-markdown">
 | Field          | Size      | Encoding          | Description                        |
@@ -1182,19 +1182,19 @@ TLD {
 | Blake3 Target  | 32 bytes  | raw               | Blake3 difficulty target           |
       </code></pre>
 
-      <p><strong>Block hash</strong>: Blake3(Version through Miner Pubkey ‖ Blake3 Nonce). The hash covers 786 bytes of header data plus the 8‑byte nonce. VRF Target and Blake3 Target are excluded from the hash input—they are consensus‑derived values, not miner‑chosen.</p>
+      <p><strong>Block hash</strong>: Blake3(Version through Miner Pubkey ‖ Blake3 Nonce). The hash covers 786 bytes of header data plus the 8‑byte nonce. VRF Target and Blake3 Target are excluded from the hash input—they are consensus‑derived values, not miner‑chosen.</p>
 
-      <p><strong>Merkle tree</strong>: Blake3‑based binary tree over transaction hashes (not double‑SHA256).</p>
+      <p><strong>Merkle tree</strong>: Blake3‑based binary tree over transaction hashes (not double‑SHA256).</p>
 
-      <p><strong>NamesRoot</strong>: A Blake3 Merkle tree over all actively owned TLDs. Only names in ownership states (<code>REGISTER</code>, <code>UPDATE</code>, <code>RENEW</code>, <code>TRANSFER</code>) are included; names still in auction (<code>OPEN</code>, <code>BID</code>, <code>REVEAL</code>) are excluded. Each leaf is the Blake3 hash of a canonical string encoding the name’s hash, covenant state, registration height, owner, expiration block, TLD class, and personal‑since height. Leaves are sorted deterministically by name hash before tree construction, ensuring all nodes compute an identical root. Validators recompute the NamesRoot after processing a block’s covenants and reject any block whose header commitment does not match.</p>
+      <p><strong>NamesRoot</strong>: A Blake3 Merkle tree over all actively owned TLDs. Only names in ownership states (<code>REGISTER</code>, <code>UPDATE</code>, <code>RENEW</code>, <code>TRANSFER</code>) are included; names still in auction (<code>OPEN</code>, <code>BID</code>, <code>REVEAL</code>) are excluded. Each leaf is the Blake3 hash of a canonical string encoding the name’s hash, covenant state, registration height, owner, expiration block, TLD class, and personal‑since height. Leaves are sorted deterministically by name hash before tree construction, ensuring all nodes compute an identical root. Validators recompute the NamesRoot after processing a block’s covenants and reject any block whose header commitment does not match.</p>
 
       <h4>A.4 Covenant Types</h4>
 
-      <p>Dap uses 9 covenant types (byte values 0–8). Unlike some UTXO naming systems, Dap does not implement <code>CLAIM</code>, <code>REDEEM</code>, or <code>REVOKE</code> covenants; their functions are handled by <code>REGISTER</code> and <code>PENALIZE</code> instead.</p>
+      <p>Dap uses 9 covenant types (byte values 0–8). Unlike some UTXO naming systems, Dap does not implement <code>CLAIM</code>, <code>REDEEM</code>, or <code>REVOKE</code> covenants; their functions are handled by <code>REGISTER</code> and <code>PENALIZE</code> instead.</p>
 
       <pre class="dedent"><code class="language-markdown">
 | Value | Type     | Description                                 |
-|-------|----------|---------------------------------------------|
+| ----- | -------- | ------------------------------------------- |
 | 0     | NONE     | Standard transaction (no covenant)          |
 | 1     | OPEN     | Initiate a TLD auction                      |
 | 2     | BID      | Place a sealed bid                          |
@@ -1204,9 +1204,10 @@ TLD {
 | 6     | RENEW    | Renew TLD registration                      |
 | 7     | TRANSFER | Transfer TLD to a new owner                 |
 | 8     | PENALIZE | Anti‑squatting enforcement (consensus‑only) |
+| 9     | REDEEM   | Refund a losing (or lapsed‑winner) reveal   |
       </code></pre>
 
-      <p><code>PENALIZE</code> cannot be submitted in user transactions. The consensus layer generates penalize actions automatically at every enforcement interval (2,016 blocks, ~2.8 days).</p>
+      <p><code>PENALIZE</code> cannot be submitted in user transactions. The consensus layer generates penalize actions automatically at every enforcement interval (2,016 blocks, ~2.8 days).</p>
 
       <p><strong>State machine</strong>:</p>
 
@@ -1223,6 +1224,10 @@ TRANSFER → UPDATE / RENEW / TRANSFER
 PENALIZE → OPEN (triggers re‑auction)
       </code></pre>
 
+      <p><code>UPDATE</code> covenants carry a record version that must strictly increase over the previously accepted version — replayed or downgraded record versions are rejected by consensus.</p>
+
+      <p><code>REDEEM</code> does not appear in the state machine: it is a spend‑rule covenant, not a name‑state transition. After the reveal period ends, a losing bidder spends their <code>REVEAL</code> output with a <code>REDEEM</code> to recover the full reveal value; the name’s state is unaffected. Lapsed auctions and expired registrations may additionally transition back to <code>OPEN</code> (re‑auction), gated by expiry rules.</p>
+
       <p><strong>Auction timing (mainnet)</strong>:</p>
 
       <pre class="dedent"><code class="language-markdown">
@@ -1235,7 +1240,7 @@ PENALIZE → OPEN (triggers re‑auction)
 | Renewal window        | ~1 month  | 21,900      | Grace period before expiration |
       </code></pre>
 
-      <p>Full lifecycle: <code>OPEN</code> at block <code>N</code> → bids accepted until <code>N+3,600</code> → reveals accepted until <code>N+4,320</code> → winner registers after <code>N+4,320</code> → registration expires at registration block + 131,400.</p>
+      <p>Full lifecycle: <code>OPEN</code> at block <code>N</code> → bids accepted until <code>N+3,600</code> → reveals accepted until <code>N+4,320</code> → winner registers after <code>N+4,320</code> → registration expires at registration block + 131,400.</p>
 
       <p><strong>Minimum bids by TLD length</strong>:</p>
 
@@ -1250,7 +1255,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <h4>A.5 Cryptographic Primitives</h4>
 
-      <p>All cryptographic operations use audited, constant‑time implementations from the <code>@noble</code> library family.</p>
+      <p>All cryptographic operations use audited, constant‑time implementations from the <code>@noble</code> library family.</p>
 
       <p><strong>Hash functions</strong>:</p>
 
@@ -1262,7 +1267,7 @@ PENALIZE → OPEN (triggers re‑auction)
 | RIPEMD‑160  | hash160 = SHA‑256 then RIPEMD‑160, used for address derivation                                                  |
       </code></pre>
 
-      <p><strong>Signature scheme</strong>: ECDSA over secp256k1 exclusively. Recoverable signatures with DER encoding. No Schnorr or ed25519 in consensus.</p>
+      <p><strong>Signature scheme</strong>: ECDSA over secp256k1 exclusively. Recoverable signatures with DER encoding. No Schnorr or ed25519 in consensus.</p>
 
       <p><strong>Sighash types</strong>:</p>
 
@@ -1275,7 +1280,7 @@ PENALIZE → OPEN (triggers re‑auction)
 | 0x80  | ANYONECANPAY flag |
       </code></pre>
 
-      <p>Sighash digests are computed with Blake3, not double‑SHA256.</p>
+      <p>Sighash digests are computed with Blake3, not double‑SHA256.</p>
 
       <p><strong>Key derivation and encryption</strong>:</p>
 
@@ -1289,7 +1294,7 @@ PENALIZE → OPEN (triggers re‑auction)
 | scrypt     | Wallet file encryption                   |
       </code></pre>
 
-      <p><strong>Address encoding</strong>: Bech32 (BIP‑173 compatible) with human‑readable prefix, witness version, and data payload.</p>
+      <p><strong>Address encoding</strong>: Bech32 (BIP‑173 compatible) with human‑readable prefix, witness version, and data payload.</p>
 
       <h4>A.6 Network Configuration</h4>
 
@@ -1303,7 +1308,7 @@ PENALIZE → OPEN (triggers re‑auction)
 
       <h4>A.7 P2P Protocol</h4>
 
-      <p><strong>Message format</strong>: Every P2P message has a 9‑byte header followed by a variable‑length payload.</p>
+      <p><strong>Message format</strong>: Every P2P message has a 9‑byte header followed by a variable‑length payload.</p>
 
       <pre class="dedent"><code class="language-markdown">
 | Field          | Size    | Description                    |
@@ -1313,29 +1318,29 @@ PENALIZE → OPEN (triggers re‑auction)
 | Payload length | 4 bytes | Payload size (LE uint32)       |
       </code></pre>
 
-      <p>Maximum message size is 8 MB. The magic bytes in every message header must match the network; mismatches cause immediate disconnection.</p>
+      <p>Maximum message size is 8 MB. The magic bytes in every message header must match the network; mismatches cause immediate disconnection.</p>
 
-      <p><strong>Connection limits</strong>: 8 outbound and 8 inbound peers by default, up to 50 total. Production configurations scale inbound limits higher.</p>
+      <p><strong>Connection limits</strong>: 8 outbound and 8 inbound peers by default, up to 50 total. Production configurations scale inbound limits higher.</p>
 
-      <p><strong>Handshake</strong>: On connect the initiating peer sends a <code>VERSION</code> message (version, services, timestamp, addresses, random nonce, user agent, chain height, relay preference). The remote responds with its own <code>VERSION</code> followed by <code>VERACK</code>. Self‑connections are detected via nonce comparison. Peers below protocol version 70000 are rejected.</p>
+      <p><strong>Handshake</strong>: On connect the initiating peer sends a <code>VERSION</code> message (version, services, timestamp, addresses, random nonce, user agent, chain height, relay preference). The remote responds with its own <code>VERSION</code> followed by <code>VERACK</code>. Self‑connections are detected via nonce comparison. Peers below protocol version 70000 are rejected.</p>
 
-      <p><strong>Transport encryption</strong>: Optional TLS 1.3 at the TCP layer. Production mainnet configuration requires it (cipher suites: <code>TLS_AES_256_GCM_SHA384</code>, <code>TLS_CHACHA20_POLY1305_SHA256</code>, <code>TLS_AES_128_GCM_SHA256</code>). Testnet and regtest allow plaintext.</p>
+      <p><strong>Transport encryption</strong>: Optional TLS 1.3 at the TCP layer. Production mainnet configuration requires it (cipher suites: <code>TLS_AES_256_GCM_SHA384</code>, <code>TLS_CHACHA20_POLY1305_SHA256</code>, <code>TLS_AES_128_GCM_SHA256</code>). Testnet and regtest allow plaintext.</p>
 
-      <p><strong>Peer scoring</strong>: Each misbehavior adds points toward a ban threshold of 100. Reaching the threshold results in a 24‑hour ban. Examples: invalid block announcement (+50), excessive inventory items (+25), transaction rate‑limit violation (+20), unknown message type (+10), rejected transaction (+5). A separate 0‑1 quality score (starting at 0.5) tracks long‑term peer reliability; peers dropping below 0.1 are banned.</p>
+      <p><strong>Peer scoring</strong>: Each misbehavior adds points toward a ban threshold of 100. Reaching the threshold results in a 24‑hour ban. Examples: invalid block announcement (+50), excessive inventory items (+25), transaction rate‑limit violation (+20), unknown message type (+10), rejected transaction (+5). A separate 0‑1 quality score (starting at 0.5) tracks long‑term peer reliability; peers dropping below 0.1 are banned.</p>
 
       <p><strong>DNS Integration</strong>:</p>
 
       <ul>
         <li>Full RFC compliance</li>
         <li>DNSSEC support</li>
-        <li>< 50ms resolution target</li>
+        <li>< 50ms resolution target</li>
         <li>99.9% uptime SLA</li>
         <li>IPv6 and IPv4 support</li>
       </ul>
 
       <h3>Appendix B: Pragmatic Trade‑offs</h3>
 
-      <p>What Centralization We Accept:</p>
+      <p>What Centralization We Accept:</p>
 
       <pre class="dedent"><code class="language-markdown">
 | Component           | Centralization        | Duration | Justification       |
@@ -1350,63 +1355,63 @@ PENALIZE → OPEN (triggers re‑auction)
       <p>Sunset Provisions:</p>
 
       <ul>
-        <li>Foundation voting power decreases 20% yearly</li>
-        <li>Development fund transitions to DAO control</li>
-        <li>Technical decisions shift to governance</li>
-        <li>All special powers expire by year 5</li>
+        <li>Foundation voting power decreases 20% yearly</li>
+        <li>Development fund transitions to DAO control</li>
+        <li>Technical decisions shift to governance</li>
+        <li>All special powers expire by year 5</li>
       </ul>
 
-      <h3>Appendix C: Success Stories We Want</h3>
+      <h3>Appendix C: Success Stories We Want</h3>
 
-      <p><strong>Year 1</strong>: “Startup Raises $5M Using <code>.mystartup</code> TLD”</p>
+      <p><strong>Year 1</strong>: “Startup Raises $5M Using <code>.mystartup</code> TLD”</p>
 
       <ul>
-        <li>Company uses <code>.mystartup</code> domain for all properties</li>
-        <li>Investors see innovation mindset</li>
-        <li>Media coverage drives Dap awareness</li>
+        <li>Company uses <code>.mystartup</code> domain for all properties</li>
+        <li>Investors see innovation mindset</li>
+        <li>Media coverage drives Dap awareness</li>
       </ul>
 
-      <p><strong>Year 2</strong>: “Fortune 500 Migrates to <code>.mybrand</code> TLD”</p>
+      <p><strong>Year 2</strong>: “Fortune 500 Migrates to <code>.mybrand</code> TLD”</p>
 
       <ul>
-        <li>Major corporation adopts Dap for brand protection</li>
-        <li>Demonstrates enterprise viability</li>
-        <li>Drives institutional adoption</li>
+        <li>Major corporation adopts Dap for brand protection</li>
+        <li>Demonstrates enterprise viability</li>
+        <li>Drives institutional adoption</li>
       </ul>
 
-      <p><strong>Year 3</strong>: “Developer Earns $1M from Domain App”</p>
+      <p><strong>Year 3</strong>: “Developer Earns $1M from Domain App”</p>
 
       <ul>
-        <li>Individual developer builds successful service</li>
-        <li>Proves ecosystem economic opportunity</li>
+        <li>Individual developer builds successful service</li>
+        <li>Proves ecosystem economic opportunity</li>
         <li>Attracts more builders</li>
       </ul>
 
-      <p><strong>Year 5</strong>: “Dap Serves 1 Billion DNS Queries Daily”</p>
+      <p><strong>Year 5</strong>: “Dap Serves 1 Billion DNS Queries Daily”</p>
 
       <ul>
-        <li>Achieving scale comparable to major DNS providers</li>
-        <li>Real utility at global scale</li>
-        <li>Undeniable product‑market fit</li>
+        <li>Achieving scale comparable to major DNS providers</li>
+        <li>Real utility at global scale</li>
+        <li>Undeniable product‑market fit</li>
       </ul>
 
       <h3>Appendix D: The Anti‑Patterns We Avoid</h3>
 
-      <p><strong>Governance Paralysis</strong>: Other projects spent months debating minor parameter changes while shipping nothing. We decide in days and iterate.</p>
+      <p><strong>Governance Paralysis</strong>: Other projects spent months debating minor parameter changes while shipping nothing. We decide in days and iterate.</p>
 
-      <p><strong>Purity Spirals</strong>: Other communities attacked any pragmatism as betrayal. We celebrate what works.</p>
+      <p><strong>Purity Spirals</strong>: Other communities attacked any pragmatism as betrayal. We celebrate what works.</p>
 
-      <p><strong>Technical Superiority Without Usage</strong>: Others built “the best” system nobody uses. We build good‑enough systems millions use.</p>
+      <p><strong>Technical Superiority Without Usage</strong>: Others built “the best” system nobody uses. We build good‑enough systems millions use.</p>
 
-      <p><strong>Community Gatekeeping</strong>: Toxic maximalism drove away builders. We welcome anyone who ships.</p>
+      <p><strong>Community Gatekeeping</strong>: Toxic maximalism drove away builders. We welcome anyone who ships.</p>
 
-      <p><strong>Speculation Over Utility</strong>: Others optimized for token price over product development. We optimize for usage metrics.</p>
+      <p><strong>Speculation Over Utility</strong>: Others optimized for token price over product development. We optimize for usage metrics.</p>
 
-      <p><strong>Documentation Negligence</strong>: Others never properly documented APIs or tools. We maintain comprehensive, updated documentation.</p>
+      <p><strong>Documentation Negligence</strong>: Others never properly documented APIs or tools. We maintain comprehensive, updated documentation.</p>
 
-      <p><strong>User Hostility</strong>: Others expected users to understand blockchain complexity. We hide complexity behind simple, intuitive interfaces.</p>
+      <p><strong>User Hostility</strong>: Others expected users to understand blockchain complexity. We hide complexity behind simple, intuitive interfaces.</p>
 
-      <p><strong>ICANN Deference</strong>: Others reserved ICANN namespaces out of misplaced respect. We compete on merit.</p>
+      <p><strong>ICANN Deference</strong>: Others reserved ICANN namespaces out of misplaced respect. We compete on merit.</p>
     </section>
 
     <hr/>
