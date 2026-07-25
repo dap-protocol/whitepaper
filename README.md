@@ -1,5 +1,5 @@
 # Dap: A Pragmatic Approach to Decentralized Naming
-**Version 10**
+**Version 11**
 
 ## 1. Abstract
 
@@ -810,26 +810,29 @@ The block header is ~858 bytes (compared to Bitcoin’s 80 bytes), reflecting th
 
 **Merkle tree**: Blake3‑based binary tree over transaction hashes (not double‑SHA256).
 
-**NamesRoot**: A Blake3 Merkle tree over all actively owned TLDs. Names in ownership states (REGISTER, UPDATE, RENEW, TRANSFER) are included; names in auction (OPEN, BID, REVEAL) are excluded. Each leaf (format v2) is the Blake3 hash of a canonical string encoding the name’s hash, covenant state, registration height, owner, expiration block, TLD class, personal‑since height, record version, conversion height, attested tier, and attestation height. Leaves are sorted deterministically by name hash before tree construction, ensuring all nodes compute an identical root. Validators recompute the NamesRoot after processing a block’s covenants and reject any block whose header commitment does not match.
+**NamesRoot**: A Blake3 Merkle tree over all actively owned TLDs. Names in ownership states (REGISTER, UPDATE, RENEW, TRANSFER, FINALIZE) are included; names in auction (OPEN, BID, REVEAL) are excluded. Each leaf (format v3) is the Blake3 hash of a canonical string encoding the name’s hash, covenant state, registration height, owner, expiration block, TLD class, personal‑since height, record version, conversion height, attested tier, attestation height, and the pending‑transfer fields (pending owner, initiation height, maturity height, conversion flag) — the last four decide who may finalize a transfer and when, so they must be miner‑tamper‑proof. Leaves are sorted deterministically by name hash before tree construction, ensuring all nodes compute an identical root. Validators recompute the NamesRoot after processing a block’s covenants and reject any block whose header commitment does not match.
 
 #### A.4 Covenant Types
 
-Dap uses 10 covenant types (byte values 0–9). Dap does not implement CLAIM or REVOKE covenants; their functions are handled by REGISTER and PENALIZE instead.
+Dap uses 11 covenant types (byte values 0–10). Dap does not implement CLAIM or REVOKE covenants; their functions are handled by REGISTER and PENALIZE instead.
 
-| Value | Type       | Description                                 |
-| ----- | ---------- | ------------------------------------------- |
-| 0     | `NONE`     | Standard transaction (no covenant)          |
-| 1     | `OPEN`     | Initiate a TLD auction                      |
-| 2     | `BID`      | Place a sealed bid                          |
-| 3     | `REVEAL`   | Reveal a previously sealed bid              |
-| 4     | `REGISTER` | Claim TLD ownership (auction winner)        |
-| 5     | `UPDATE`   | Update TLD DNS records                      |
-| 6     | `RENEW`    | Renew TLD registration                      |
-| 7     | `TRANSFER` | Transfer TLD to a new owner                 |
-| 8     | `PENALIZE` | Anti‑squatting enforcement (consensus‑only) |
-| 9     | `REDEEM`   | Refund a losing (or lapsed‑winner) reveal   |
+| Value | Type       | Description                                       |
+| ----- | ---------- | ------------------------------------------------- |
+| 0     | `NONE`     | Standard transaction (no covenant)                |
+| 1     | `OPEN`     | Initiate a TLD auction                            |
+| 2     | `BID`      | Place a sealed bid                                |
+| 3     | `REVEAL`   | Reveal a previously sealed bid                    |
+| 4     | `REGISTER` | Claim TLD ownership (auction winner)              |
+| 5     | `UPDATE`   | Update TLD DNS records                            |
+| 6     | `RENEW`    | Renew TLD registration                            |
+| 7     | `TRANSFER` | Record transfer intent (pending owner + maturity) |
+| 8     | `PENALIZE` | Anti‑squatting enforcement (consensus‑only)       |
+| 9     | `REDEEM`   | Refund a losing (or lapsed‑winner) reveal         |
+| 10    | `FINALIZE` | Complete a matured pending transfer               |
 
 PENALIZE cannot be submitted in user transactions. The consensus layer generates penalize actions automatically at every enforcement interval (2,016 blocks, ~2.8 days).
+
+TRANSFER does not change ownership by itself: it records the pending new owner and a maturity height (initiation height plus the network’s `transferFinalizeDelay` — 1,440 blocks ≈ 48 hours on mainnet). Ownership changes only when a FINALIZE for the matching pending owner lands at or after maturity. Because the delay exceeds the finality depth, no ownership change can be born and completed inside a reorg‑able segment. An UPDATE or RENEW by the current owner cancels a pending transfer; a second TRANSFER replaces it and restarts the clock.
 
 **State machine**:
 
@@ -842,23 +845,24 @@ REVEAL → REGISTER
 REGISTER ——→ UPDATE / RENEW / TRANSFER
 UPDATE   ——→ UPDATE / RENEW / TRANSFER
 RENEW    ——→ UPDATE / RENEW / TRANSFER
-TRANSFER ——→ UPDATE / RENEW / TRANSFER
+TRANSFER ——→ FINALIZE (at maturity) / UPDATE / RENEW (cancel) / TRANSFER (replace)
+FINALIZE ——→ UPDATE / RENEW / TRANSFER
 PENALIZE ——→ OPEN (triggers re‑auction)
 ```
 
 UPDATE covenants carry a record version that must strictly increase over the previously accepted version — replayed or downgraded record versions are rejected by consensus.
 
-REDEEM does not appear in the state machine: it is a spend‑rule covenant, not a name‑state transition. After the reveal period ends, a losing bidder spends their REVEAL output with a REDEEM to recover the full reveal value; the name’s state is unaffected. Lapsed auctions and expired registrations may additionally transition back to OPEN (re‑auction), gated by expiry rules.
+REDEEM does not appear in the state machine: it is a spend‑rule covenant, not a name‑state transition. After the reveal period ends, a losing bidder spends their REVEAL output with a REDEEM to recover the full reveal value; the name’s state is unaffected. Lapsed auctions and expired registrations may additionally transition back to OPEN (re‑auction), gated by the expiry rules in `names/validation.ts`.
 
 **Auction timing (mainnet)**:
 
-| Phase                 | Duration  | Block count | Description                                      |
-| --------------------- | --------- | ----------- | ------------------------------------------------ |
-| OPEN → BID end        | ~5 days   | 3,600       | Sealed bids accepted                             |
-| BID end → REVEAL end  | ~1 day    | 720         | Bidders reveal sealed bids                       |
-| REVEAL end → REGISTER | ~5 days   | 3,600       | Winner claim window                              |
-| Expiration            | ~1 year   | 262,800     | Max expiry extension; TLD expires if not renewed |
-| Renewal window        | ~1 month  | 21,900      | Grace period before expiration                   |
+| Phase                 | Duration | Block count | Description                                      |
+| --------------------- | -------- | ----------- | ------------------------------------------------ |
+| OPEN → BID end        | ~5 days  | 3,600       | Sealed bids accepted                             |
+| BID end → REVEAL end  | ~1 day   | 720         | Bidders reveal sealed bids                       |
+| REVEAL end → REGISTER | ~5 days  | 3,600       | Winner claim window                              |
+| Expiration            | ~1 year  | 262,800     | Max expiry extension; TLD expires if not renewed |
+| Renewal window        | ~1 month | 21,900      | Grace period before expiration                   |
 
 Full lifecycle: OPEN at block N → bids accepted until N+3,600 → reveals accepted until N+4,320 → winner registers after N+4,320 and before the registration deadline at N+7,920 (after which the name may be re‑opened and the lapsed winner’s reveal becomes redeemable) → registration expires at registration block + up to 262,800 (the consensus cap on expiry extension; renewal is permitted within the 21,900‑block window before expiry).
 
@@ -915,6 +919,9 @@ Sighash digests are computed with Blake3, not double‑SHA256.
 | Mainnet | 12038    | 12039    | 14038       | `0xd4f00d42` |
 | Testnet | 13038    | 13039    | 15038       | `0xd4f00d43` |
 | Regtest | 14038    | 14039    | 16038       | `0xd4f00d44` |
+| Devnet  | 17038    | 17039    | 18038       | `0xd4f00d45` |
+
+Devnet is the test‑harness network: regtest’s fast parameters with every consensus check active, no DNS seeds (topologies are wired explicitly via `addnode`), and effectively unbounded timestamp drift so test suites can fast‑forward chain time.
 
 #### A.7 P2P Protocol
 
@@ -957,6 +964,7 @@ Maximum message size is 8 MB. The magic bytes in every message header must match
 | Documentation       | Technical writers     | Ongoing  | Developer success   |
 
 **Sunset Provisions**:
+
 - Foundation voting power decreases 20% yearly
 - Development fund transitions to DAO control
 - Technical decisions shift to governance
@@ -1008,6 +1016,6 @@ Maximum message size is 8 MB. The magic bytes in every message header must match
 
 ---
 
-*Join us: [https://dap.sh](https://dap.sh)*
+_Join us: [https://dap.sh](https://dap.sh)_
 
-*Version 10*
+_Version 11_
